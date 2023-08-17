@@ -12,8 +12,18 @@ import {AiFillPlusCircle} from "react-icons/ai"
 import {ImCross} from "react-icons/im"
 import {AiOutlineLike} from "react-icons/ai"
 import {FaRegCommentDots} from "react-icons/fa"
-
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 const Home = () => {
+  const navigate = useNavigate();
+  const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
+  console.log(isAuthenticated);
+  useEffect(()=>{
+    if(isAuthenticated == false){
+      navigate('/login');
+    }
+  },[])
   return (
     <div className=' w-full flex bg-Homecolor pt-16'>
       <div className='wwd h-full flex mt-5 mr-5 items-end flex-col'>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import link from "../assests/linkedin.png"
 import {AiOutlineSearch} from "react-icons/ai"
 import {AiFillHome} from "react-icons/ai"
@@ -8,15 +8,28 @@ import {AiOutlineMessage} from "react-icons/ai"
 import {IoMdNotifications} from "react-icons/io"
 import {BsFillPersonFill} from "react-icons/bs"
 import './Navbar.css'
+import linkk from '../assests/lik-removebg-preview.png'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState('');
   const [isInputFocused, setIsInputFocused] = useState(false);
   const handleInputFocus = () => {
     setIsInputFocused(true);
   };
-
+  const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
+  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
+  console.log(user);
+  console.log(isAuthenticated);
+  const [login , setlogin] = useState(false);
+  useEffect(()=>{ 
+    if(user != null){
+      setlogin(true);
+    }
+  },[user])
   const handleInputBlur = () => {
     setIsInputFocused(false);
   };
@@ -36,7 +49,14 @@ const Navbar = () => {
     // border:isInputFocused? '2px s':'none'
   };
 
+  const handleReg = () =>{
+    navigate('/register')
+  }
+
   return (
+    <>
+    {
+    login==true?
     <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10'>
       <div className='h-full w-5/12 flex items-center justify-center'>
         <img className='h-8 w-8' src={link} alt="" />
@@ -50,11 +70,6 @@ const Navbar = () => {
         onClick={() => handleLinkClick('link1')} className='flex-col mt-2 flex w-14 items-center'>
         <AiFillHome className='text1 ml-1'/>
         <h1 className='text'>Home</h1>
-        </Link>
-        <Link  style={linkStyle('link2')}
-        onClick={() => handleLinkClick('link2')} className='flex-col mt-2 flex items-center'>
-        <BsFillPeopleFill className='text1 ml-1'/>
-        <h1 className='text'>My Network</h1>
         </Link>
         <Link style={linkStyle('link3')}
         onClick={() => handleLinkClick('link3')}  className='flex-col mt-2 flex items-center'>
@@ -79,6 +94,18 @@ const Navbar = () => {
         </Link>
       </div>
     </div>
+    :
+    <>
+    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex justify-between ml-3 mr-3 items-center z-10'>
+       <img src={linkk} className='h-8 w-50 ' alt="" />
+       <div className='h-40 w-80 flex justify-center items-center'>
+        <button className='h-10 w-28 mr-5  rounded-md' onClick={handleReg}>Join Now</button>
+        <button className='h-10 w-28 border-2 border-slate-500 rounded-md'>Sign In</button>
+       </div>
+    </div>
+    </>
+    }
+    </>
   )
 }
 

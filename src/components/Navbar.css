@@ -129,11 +129,27 @@
 .imgp{
     background: url('../assests/my\ image.jpeg') no-repeat center center/cover;
 }
+.imgp1{
+    /* background: url('../assests/992651.png') no-repeat center center/cover; */
+    /* height: 100; */
+}
+.imagge{
+    position: relative;
+    top: 37px;
+    left: 37px;
+}
+
 .textsize1{
     font-size: 13px;
 }
 .edit{
     left: 1015px;
+    cursor: pointer;
+    color: gray;
+    font-size: 30px;
+}
+.edit1{
+    left: 975px;
     cursor: pointer;
     color: gray;
     font-size: 30px;
@@ -144,12 +160,52 @@
     background: url('../assests/Screenshot_20230708_163705.png') no-repeat center center/cover;
     /* opacity: 0.4; */
 }
+.form2{
+    height: 100vh;
+    width: 100%;
+    background: url('../assests/Screenshot_20230724_003055.png') no-repeat center center/cover;
+    /* opacity: 0.4; */
+}
+.form3{
+    height: 100vh;
+    width: 100%;
+    background: url('../assests/Screenshot_20230729_231000.png') no-repeat center center/cover;
+    /* opacity: 0.4; */
+}
+.form4{
+    height: 100vh;
+    width: 100%;
+    background: url('../assests/Screenshot_20230804_015133.png') no-repeat center center/cover;
+    /* opacity: 0.4; */
+}
+
 .nikki{
     height: 577px;
     position: absolute;
     top: 87px;
     left: 461px;
     width: 588px;
+}
+.nikki1{
+    height: 517px;
+    position: absolute;
+    top: 87px;
+    left: 461px;
+    width: 688px;
+}
+.nikki2{
+    height: 660px;
+    position: absolute;
+    top: 70px;
+    left: 461px;
+    width: 688px;
+}
+.nikki3{
+    height: 390px;
+    position: absolute;
+    top: 70px;
+    left: 461px;
+    width: 688px;
 }
 .one{
     padding-left: 20px;
@@ -162,4 +218,47 @@
 .two{
     padding-left: 20px;
     width: 48%;
+}
+
+.font-text{
+    font-size: 60px;
+    width: 100%;
+    font-weight: 100;
+    color: rgb(91, 56, 56);
+}
+.inputt{
+    height: 60px;
+    margin-top: 10px;
+    width: 420px;
+    padding-left: 10px;
+    /* border-radius: 10px; */
+    border: 2px solid gray;
+    /* background-color: aqua; */
+    border-radius: 6px;
+    font-size: 20px;
+}
+.inputt1{
+    height: 60px;
+    font-size: 20px;
+    margin-top: 5px;
+    width: 420px;
+    border-radius: 6px;
+    /* border-radius: 10px; */
+    border: 2px solid gray;
+    /* background-color: aqua; */
+    padding-left: 10px;
+}
+.hei{
+    /* height: 300px; */
+}
+.hrw{
+    width: 200px;
+    margin-top: 10px;
+    background-color: gray;
+}
+.hei1{
+    height: 500px;
+    /* margin-bottom: 30px; */
+    width: 400px;
+    background-color: aliceblue;
 }
