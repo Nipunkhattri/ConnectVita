@@ -12,7 +12,7 @@ import linkk from '../assests/lik-removebg-preview.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
+import logo from '../assests/my image.jpeg';
 const Navbar = () => {
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState('');
@@ -34,7 +34,9 @@ const Navbar = () => {
     setIsInputFocused(false);
   };
 
-  const handleLinkClick = (link) => {
+  const handleLinkClick = (id,link) => {
+    console.log(id);
+    navigate(`/profile/${id}`)
     setActiveLink(link);
   };
 
@@ -88,9 +90,16 @@ const Navbar = () => {
         </Link>
         <Link  style={linkStyle('link6')}
         to='/profile'
-        onClick={() => handleLinkClick('link6')} className='flex-col mt-2 flex w-14 items-center'>
-        <BsFillPersonFill className='text1 ml-1'/>
-        <h1 className='text'>Me</h1>
+        onClick={() => handleLinkClick(user?._id,'link6')} className='flex-col mt-2 flex w-14 items-center'>
+          {
+            user.image?
+            <img className='hda' src={user?.image?(user?.image):logo} alt="" />
+            :
+            <>
+            <BsFillPersonFill className='text1 ml-1'/>
+            <h1 className='text'>Me</h1>
+            </>
+          }
         </Link>
       </div>
     </div>

@@ -32,7 +32,33 @@ export const setExperience = createAsyncThunk(
   }
 )
 
+export const updateExp = createAsyncThunk(
+  'auth/update',
+  async ({Edata,navigate}) =>{
+    try {
+      console.log(Edata);
+      const res = await api.updateExpdata(Edata);
+      toast.success("Updated Successfully");
+      navigate('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
 
+export const updatePro = createAsyncThunk(
+  'auth/update',
+  async ({pdata,navigate}) =>{
+    try {
+      // console.log(Edata);
+      const res = await api.updateProdata(pdata);
+      toast.success("Updated Successfully");
+      navigate('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
 export const setaboutdata = createAsyncThunk(
   'auth/about',
   async ({adata,navigate})=>{
@@ -76,13 +102,57 @@ export const fetchexp = createAsyncThunk(
   }
 )
 
+export const getExpeditId = createAsyncThunk(
+'auth/EdiExpId',
+async ({_id,navigate}) =>{
+  try {
+    const res = await api.EditexpById(_id);
+    console.log(res);
+    // navigate('/profile');
+    return res.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+)
+
+export const getProeditId = createAsyncThunk(
+'auth/EdiProId',
+async ({_id,navigate}) =>{
+  try {
+    const res = await api.EditProById(_id);
+    console.log(res);
+    // navigate('/profile');
+    return res.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+)
+export const fetctPro = createAsyncThunk(
+  'auth/fetchPro',
+  async (_id) =>{
+    try {
+      const res = await api.getPro(_id);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
+
 export const setproject = createAsyncThunk(
   'auth/Productadd',
   async({pdata,navigate}) => {
     try {
       const res = await api.setpdata(pdata)
+      console.log(res);
+      toast.success("Project Added");
+      navigate('/profile');
+      return res;
     } catch (error) {
-      
+      console.log(error);
     }
   }
 )
@@ -131,6 +201,8 @@ const AuthSlice = createSlice({
         isAuthenticated: persistedState1,
         data:persistedState,
         exp:null,
+        Pro:null,
+        image:null
     },
     reducers:{
         setUser: (state, action) => {
@@ -146,6 +218,9 @@ const AuthSlice = createSlice({
             state.isAuthenticated = false;
             localStorage.clear();
             state.data = null;
+          },
+          addImage: (state, action) => {
+            state.image = action.payload;
           },
     },
     extraReducers:{
@@ -188,10 +263,23 @@ const AuthSlice = createSlice({
       [fetchexp.rejected]: (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      },
+      [fetctPro.pending]: (state, action) => {
+        state.loading = true;
+      },
+      [fetctPro.fulfilled]: (state, action) => {
+        state.loading = false;
+        // localStorage.setItem("profiledata", JSON.stringify({ ...action.payload }));
+        state.Pro = action.payload;
+        // state.isAuthenticated = action.payload.data.token;
+      },
+      [fetctPro.rejected]: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       }
     }
 })
 
-export const { setUser, setLogout } = AuthSlice.actions;
+export const { setUser, setLogout , addImage} = AuthSlice.actions;
 
 export default AuthSlice.reducer;

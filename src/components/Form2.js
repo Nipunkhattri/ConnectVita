@@ -13,7 +13,7 @@ const Form2 = () => {
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
 
   const [adata,setadata] = useState({
-    textarea:"",
+    textarea:user.About?user.About:"",
     id:user?._id
   })
 

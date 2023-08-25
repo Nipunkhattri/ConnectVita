@@ -14,6 +14,11 @@ import Register from './components/Register';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import EditExp from './components/EditExp';
+import Form3edit from './components/Form3edit';
+import ProEdit from './components/ProEdit';
+import Form4edit from './components/Form4edit';
+import ImageUpload from './components/ImageUpload';
 
 function App() {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
@@ -25,13 +30,18 @@ function App() {
     <>
     <Routes>
       <Route exact path='/' element={<Home/>}/>
-      <Route exact path='/profile' element={<Profile/>}/>
+      <Route exact path='/profile/:id' element={<Profile/>}/>
       <Route exact path='/profile/form1' element={<Form1/>}/>
       <Route exact path='/profile/form2' element={<Form2/>}/>
       <Route exact path='/profile/form3' element={<Form3/>}/>
+      <Route exact path='/profile/form3/edit' element={<Form3edit/>}/>
+      <Route exact path='/profile/form4/edit' element={<Form4edit/>}/>
       <Route exact path='/profile/form4' element={<Form4/>}/>
       <Route exact path='/login' element={<Login/>}/>
       <Route exact path='/Register' element={<Register/>}/>
+      <Route exact path='/expEdit' element={<EditExp/>}/>
+      <Route exact path='/ProEdit' element={<ProEdit/>}/>
+      <Route exact path='/Upload' element={<ImageUpload/>}/>
     </Routes>
     </>
     </>

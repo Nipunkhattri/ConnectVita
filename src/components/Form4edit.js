@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router";
-import { setproject } from '../redux/features/AuthSlice';
-const Form4 = () => {
+import { useLocation, useNavigate } from "react-router";
+import { getProeditId, setproject, updatePro } from '../redux/features/AuthSlice';
+const Form4edit = ({Route}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handlereturn = () => {
     navigate("/profile");
   };
 
+  const location = useLocation();
+
+  const _id = location.state.id;
+
+//   const [data,setEditedData] = useState(null);
+
+  useEffect(()=>{
+    dispatch(getProeditId({_id,navigate}))
+    .then((response) => {
+      console.log(response.payload);
+    //   setEditedData(response.payload[0]);
+      setpdata(response.payload[0])
+  })  
+  .catch((err) => {
+      console.log(err);
+  });
+  },[])
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
 
   const [pdata,setpdata] = useState({
@@ -26,9 +43,10 @@ const Form4 = () => {
 
   console.log(pdata);
 
-  const save = (e)=>{
+  const savedata = (e)=>{
     e.preventDefault();
-    dispatch(setproject({pdata,navigate}));
+    // dispatch(setproject({pdata,navigate}));
+    dispatch(updatePro({pdata,navigate}))
   }
   
   return (
@@ -46,11 +64,11 @@ const Form4 = () => {
         <textarea className='border-2  border-slate-300 rounded-md ml-4 pl-2' name='AboutP' value={pdata.AboutP} onChange={handlechange} placeholder='Write about Your Project' cols="70" rows="5"></textarea>
         <input type="text" placeholder='Project Link' className='h-10 w-96 pl-3 ml-4 mt-3 border-2 border-slate-300 rounded-md' name='ProjectLink' value={pdata.ProjectLink} onChange={handlechange}/>
         <div className="text-right w-full">
-          <button className="h-10 bg-blue-600 text-white w-32 mr-4 rounded-md text-xl" onClick={save}>Save</button>
+          <button className="h-10 bg-blue-600 text-white w-32 mr-4 rounded-md text-xl" onClick={savedata}>Save</button>
         </div>
       </div>
     </div>
   )
 }
 
-export default Form4
+export default Form4edit

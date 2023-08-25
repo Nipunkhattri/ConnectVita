@@ -116,7 +116,11 @@
     margin-left: 20px;
 }
 .divimg{
-    background: url('../assests//Tag.jpg')no-repeat center;
+    /* background: url('../assests//Tag.jpg')no-repeat center; */
+    height:450px;
+    width: 100%;
+}
+.imagepost{
     height:450px;
     width: 100%;
 }
@@ -135,15 +139,37 @@
 }
 .imagge{
     position: relative;
-    top: 37px;
-    left: 37px;
+    top: 2px;
+    left: 3px;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
 }
 
 .textsize1{
     font-size: 13px;
 }
+.hda{
+    height: 50px;
+    border-radius: 100%;
+    margin-bottom: 7px; 
+}
 .edit{
     left: 1015px;
+    cursor: pointer;
+    color: gray;
+    font-size: 30px;
+}
+.edit6{
+    position: relative;
+    left: 362px;
+    cursor: pointer;
+    color: gray;
+    font-size: 30px;
+}
+.edit7{
+    position: absolute;
+    left: 851px;
     cursor: pointer;
     color: gray;
     font-size: 30px;
@@ -261,4 +287,7 @@
     /* margin-bottom: 30px; */
     width: 400px;
     background-color: aliceblue;
+}
+.expdiv{
+    height: 44rem;
 }
