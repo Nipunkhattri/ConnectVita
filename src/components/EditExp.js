@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchexp } from '../redux/features/AuthSlice';
+import { deleteExp, fetchexp } from '../redux/features/AuthSlice';
 import logo from '../assests/my image.jpeg';
 import {AiOutlineEdit} from "react-icons/ai"
+import {AiFillDelete} from "react-icons/ai"
 import { useNavigate } from 'react-router';
 
 const EditExp = () => {
@@ -17,6 +18,10 @@ const EditExp = () => {
     const handleEditId = (id) =>{
         navigate('/profile/form3/edit',{state : {id:id}})
     }
+    const handledelete = (id) =>{
+      // console.log(id);
+        dispatch(deleteExp({id,navigate}));
+    }
   return (
     <div className='expdiv w-2/4  ml-40 pt-24'>
       <div className='h-5/6 w-full bg-white'>
@@ -30,9 +35,10 @@ const EditExp = () => {
         <div>
           <h1 className='text-lg font-medium'>{item.title}</h1>
           <h3>{item.Company} · {item.type}</h3>
-          <h4 className='text-slate-400 text-sm'>Apr 2022 - Present · 1 yr 4 mos</h4>
+          <h4 className='text-slate-400 text-sm'>{item.startdate} to {item.enddate}</h4>
         </div>
-        <AiOutlineEdit className='edit6' onClick={() => handleEditId(item._id)}/>
+        <AiOutlineEdit className='edit6 mr-3' onClick={() => handleEditId(item._id)}/>
+        <AiFillDelete className='edit6' onClick={() => handledelete(item._id)}/>
       </div>
       <ul className='w-10/12 ml-10 h-1 bg-slate-100'></ul>
       </>

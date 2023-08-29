@@ -17,7 +17,7 @@
 }
 .divv{
     /* height: 100%; */
-    /* width: 50%; */
+    width: 77%;
     /* overflow: scroll; */
 }
 .divsc{
@@ -79,8 +79,14 @@
 .hhh{
     height: 80vh;
 }
+.delete-button {
+    /* margin-right: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 .widthp{
-    width: 53%;
+    width: 63%;
     height: auto;
     background-color: white;
     border: 1px solid rgb(211, 211, 211);
@@ -186,6 +192,14 @@
 .edit7{
     position: absolute;
     left: 851px;
+    cursor: pointer;
+    color: gray;
+    font-size: 30px;
+}
+.edit8{
+    position: absolute;
+    left: 890px;
+    /* font-size: 10px; */
     cursor: pointer;
     color: gray;
     font-size: 30px;
@@ -332,10 +346,10 @@
   
 .popup2 {
     position: absolute;
-    top: 60%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 750px;
+    height: 950px;
     width: 800px;
     background-color: rgb(255, 255, 255);
     padding: 20px;
@@ -347,7 +361,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 500px;
+    height:650px;
     width: 800px;
     background-color: rgb(255, 255, 255);
     padding: 20px;

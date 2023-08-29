@@ -65,6 +65,7 @@ const Home = () => {
 
   const handlenavigate =(id) =>{
     navigate(`/profile/${id}`)
+    window.location.reload();
   }
 
   const [data,setdata] = useState({

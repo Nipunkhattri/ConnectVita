@@ -72,11 +72,11 @@ const Profile = ({ Route }) => {
   }, []);
   useEffect(() => {
     console.log(_id);
-    dispatch(getdata(_id));
+    dispatch(getdata(_id)); 
     dispatch(fetchexp(_id));
     dispatch(fetctPro(_id));
   }, [_id]);
-
+  
   const handleeditexp = () => {
     navigate("/expEdit");
   };
@@ -196,6 +196,8 @@ const Profile = ({ Route }) => {
     Company:'',
     Location:'',
     Ltype:"On-Site",
+    startdate:'',
+    enddate:'',
     id:user?._id
   })
 
@@ -223,7 +225,7 @@ const Profile = ({ Route }) => {
 
   const savedata1 = (e) =>{
     e.preventDefault();
-    if(Edata?.title == '' || Edata?.Ltype == "" || Edata?.Company == "" || Edata?.Location == '' || Edata?.Ltype == "" || Edata?.id == ""){
+    if(Edata?.title == '' || Edata?.Ltype == "" || Edata?.Company == "" || Edata?.Location == '' || Edata?.Ltype == "" || Edata?.startdate == "" || Edata?.id == ""){
       toast(<CustomToast message="Please fill the details "/>, {
         position: "top-center",
       });
@@ -241,7 +243,9 @@ const Profile = ({ Route }) => {
     ProjectName:"",
     AboutP:"",
     ProjectLink:"",
-    id:user?._id
+    id:user?._id,
+    startdate:'',
+    enddate:''
   })
 
 
@@ -253,7 +257,7 @@ const Profile = ({ Route }) => {
 
   const save = (e)=>{
     e.preventDefault();
-    if(pdata?.ProjectName == '' || pdata?.AboutP == "" || pdata?.ProjectLink == "" || pdata?.id == ''){
+    if(pdata?.ProjectName == '' || pdata?.AboutP == "" || pdata?.ProjectLink == "" || pdata?.id == '' || pdata?.startdate == '' ||pdata?.enddate == ''){
       toast(<CustomToast message="Please fill the details "/>, {
         position: "top-center",
       });
@@ -266,6 +270,18 @@ const Profile = ({ Route }) => {
       console.log(error)
     })
   }
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+  
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+  
+    return `${month} ${year}`;
+  };
   return (
     <div className="w-7/12 ml-40  flex flex-col pt-16 font-serif">
       {my ? (
@@ -529,7 +545,7 @@ out to next Level!..</p>
                             {item.Company} · {item.type}
                           </h3>
                           <h4 className="text-slate-400 text-sm">
-                            Apr 2022 - Present · 1 yr 4 mos
+                            {formatDate(item.startdate)} till {(item.enddate== "Present")? "Present": formatDate(item.enddate)}
                           </h4>
                         </div>
                       </div>
@@ -594,7 +610,7 @@ out to next Level!..</p>
                         {item.ProjectName}
                       </h1>
                       <h3 className="text-slate-400 mb-4">
-                        Mar 2023 - Mar 2023
+                        {formatDate(item.startdate)} to {formatDate(item.enddate?item.enddate:"Present")}
                       </h3>
                       <button className="h-10 rounded-md mb-4 w-40 border-2 border-black">
                         <Link target="_blank" to={item.ProjectLink}>
@@ -713,6 +729,32 @@ out to next Level!..</p>
             <label htmlFor="" className="text-xl mb-1">Company Name</label>
             <input className="h-16 border-2 border-gray-400 rounded-md pl-6" name="Company" value={Edata.Company} onChange={handlechange1} type="text" placeholder="Ex: Microsoft" />
           </div>
+          <div className="mb-4 ml-5">
+            <div className='w-96 '>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              Start Date
+            </label>
+            <input
+              type="date"
+              name="startdate"
+              value={Edata.startdate}
+              onChange={handlechange1}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+            </div>
+            <div className='w-96'>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              End Date
+            </label>
+            <input
+              type="date"
+              name="enddate"
+              value={Edata.enddate}
+              onChange={handlechange1}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+              </div>
+            </div>
           <div className="h-24 p-3 w-full  flex flex-col">
             <label htmlFor="" className="text-xl mb-1">Location</label>
             <input className="h-16 border-2 border-gray-400 rounded-md pl-6" name="Location" value={Edata.Location} onChange={handlechange1} type="text" placeholder="Ex: London, United Kingdom" />
@@ -749,6 +791,32 @@ out to next Level!..</p>
           <input type="text" placeholder='Project Name' name='ProjectName' value={pdata.ProjectName} onChange={handlechange2} className='h-10 w-96 pl-3 border-2 border-slate-300 rounded-md'/>
         </div>
         <textarea className='border-2  border-slate-300 rounded-md ml-4 pl-2' name='AboutP' value={pdata.AboutP} onChange={handlechange2} placeholder='Write about Your Project' cols="70" rows="5"></textarea>
+        <div className="mb-4 ml-5">
+            <div className='w-96 '>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              Start Date
+            </label>
+            <input
+              type="date"
+              name="startdate"
+              value={pdata.startdate}
+              onChange={handlechange2}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+            </div>
+            <div className='w-96'>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              End Date
+            </label>
+            <input
+              type="date"
+              name="enddate"
+              value={pdata.enddate}
+              onChange={handlechange2}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+              </div>
+            </div>
         <input type="text" placeholder='Project Link' className='h-10 w-96 pl-3 ml-4 mt-3 border-2 border-slate-300 rounded-md' name='ProjectLink' value={pdata.ProjectLink} onChange={handlechange2}/>
         <div className="text-right w-full">
           <button className="h-10 bg-blue-600 text-white w-32 mr-4 rounded-md text-xl" onClick={save}>Save</button>
@@ -1009,7 +1077,7 @@ out to next Level!..</p>
                             {item.Company} · {item.type}
                           </h3>
                           <h4 className="text-slate-400 text-sm">
-                            Apr 2022 - Present · 1 yr 4 mos
+                          {formatDate(item.startdate)} till {(item.enddate== "Present")? "Present": formatDate(item.enddate)}
                           </h4>
                         </div>
                       </div>
@@ -1074,7 +1142,7 @@ out to next Level!..</p>
                         {item.ProjectName}
                       </h1>
                       <h3 className="text-slate-400 mb-4">
-                        Mar 2023 - Mar 2023
+                      {formatDate(item.startdate)} to {formatDate(item.enddate?item.enddate:"Present")}
                       </h3>
                       <button className="h-10 rounded-md mb-4 w-40 border-2 border-black">
                         <Link target="_blank" to={item.ProjectLink}>

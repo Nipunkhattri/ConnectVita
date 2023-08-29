@@ -40,6 +40,8 @@ const Form3edit = ({Route}) => {
     Company:'',
     Location:'',
     Ltype:"On-Site",
+    startdate:"",
+    enddate:"",
     id:user?._id
   })
 
@@ -104,6 +106,32 @@ const Form3edit = ({Route}) => {
             <label htmlFor="" className="text-xl mb-1">Company Name</label>
             <input className="h-16 border-2 border-gray-400 rounded-md pl-6" name="Company" value={Edata.Company} onChange={handlechange} type="text" placeholder="Ex: Microsoft" />
           </div>
+          <div className="mb-4 ml-5">
+            <div className='w-96 '>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              Start Date
+            </label>
+            <input
+              type="date"
+              name="startdate"
+              value={Edata.startdate}
+              onChange={handlechange}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+            </div>
+            <div className='w-96'>
+            <label className="block mt-4 text-lg font-medium text-gray-600">
+              End Date
+            </label>
+            <input
+              type="date"
+              name="enddate"
+              value={Edata.enddate}
+              onChange={handlechange}
+              className="w-full p-2 border rounded-md mt-1"
+              />
+              </div>
+            </div>
           <div className="h-24 p-3 w-full  flex flex-col">
             <label htmlFor="" className="text-xl mb-1">Location</label>
             <input className="h-16 border-2 border-gray-400 rounded-md pl-6" name="Location" value={Edata.Location} onChange={handlechange} type="text" placeholder="Ex: London, United Kingdom" />

@@ -24,7 +24,6 @@ const EventPopupBox = ({onClose1}) => {
         externalLink:'',
         id:user?._id
       });
-    
       const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEventData(prevData => ({

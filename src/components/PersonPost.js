@@ -5,6 +5,8 @@ import {AiOutlineLike} from "react-icons/ai"
 import {FaRegCommentDots} from "react-icons/fa"
 import {AiFillPlusCircle} from "react-icons/ai"
 import { addlike, fetchpost, savecomment } from '../redux/features/PostSlice';
+import {AiFillDelete} from "react-icons/ai"
+import { deletePost } from '../redux/features/AuthSlice';
 
 const PersonPost = () => {
     const navigate = useNavigate();
@@ -68,6 +70,10 @@ const PersonPost = () => {
           console.log(error);
         })
       }
+      const handledelete = (id) =>{
+        // console.log(id);
+          dispatch(deletePost({id,navigate}));
+      }
   return (
     <div className='w-full bg-Homecolor pt-16'>
     <div className=' divv'>
@@ -85,8 +91,12 @@ const PersonPost = () => {
           <h1 className='text-gray-500'>Made With &#10084;&#65039;</h1>
         </div>
       </div>
-      <div className='h-full w-24 mr-2 items-center justify-center flex'>
-        <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
+
+      <div className='h-full w-24 mt-5 mr-5'>
+      <div className='delete-button' onClick={() => handledelete(item._id)}>
+    <AiFillDelete className='cursor-pointer text-xl text-red-500' />
+  </div>
+        {/* <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1> */}
       </div>
     </div>
     <div className='hi w-full'>

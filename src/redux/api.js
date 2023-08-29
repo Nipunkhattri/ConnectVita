@@ -29,3 +29,6 @@ export const sendreq = (data) => Api.post('/api/request',data)
 export const addlikeId = (likedata) => Api.post('/api/like',likedata)
 export const commentpost = (cdata) => Api.post('/api/comment',cdata);
 export const getnamearray = () => Api.get('/api/getdataname');
+export const expdelete = (id)=>Api.delete(`/api/deleteExp/${id}`)
+export const Prodelete = (id)=>Api.delete(`/api/deletePro/${id}`)
+export const Postdelete = (id)=>Api.delete(`/api/deletePost/${id}`)

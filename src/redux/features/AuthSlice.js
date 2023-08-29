@@ -61,8 +61,9 @@ export const updateExp = createAsyncThunk(
     try {
       console.log(Edata);
       const res = await api.updateExpdata(Edata);
-      toast.success("Updated Successfully");
-      // navigate('/profile');
+      toast(<CustomToast message="Exp Updated succesfully" />, {
+        position: "top-center",
+      });        // navigate('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -75,8 +76,9 @@ export const updatePro = createAsyncThunk(
     try {
       // console.log(Edata);
       const res = await api.updateProdata(pdata);
-      toast.success("Updated Successfully");
-      // navigate('/profile');
+      toast(<CustomToast message="Project Updated succesfully" />, {
+        position: "top-center",
+      });       // navigate('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -111,6 +113,7 @@ export const getdata = createAsyncThunk(
       console.log(_id);
       const res = await api.getdata(_id);
       console.log(res);
+      // window.location.reload();
       return res;
     } catch (error) {
       console.log(error);
@@ -311,6 +314,67 @@ export const getname = createAsyncThunk(
   }
 )
 
+export const deleteExp = createAsyncThunk(
+  'delete/Exp',
+  async ({id,navigate}) =>{
+    try {
+      console.log(id);
+      const res = await api.expdelete(id);
+      console.log(res);
+      toast(<CustomToast message={'Deleted Successfully'} />, {
+        position: "top-center",
+      });
+      navigate('/')
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+    }
+  }
+)
+
+export const deletePro = createAsyncThunk(
+  'delete/Pro',
+  async ({id,navigate}) =>{
+    try {
+      console.log(id);
+      const res = await api.Prodelete(id);
+      console.log(res);
+      toast(<CustomToast message={'Deleted Successfully'} />, {
+        position: "top-center",
+      });
+      navigate('/')
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+    }
+  }
+)
+export const deletePost = createAsyncThunk(
+  'delete/Post',
+  async ({id,navigate}) =>{
+    try {
+      console.log(id);
+      const res = await api.Postdelete(id);
+      console.log(res);
+      toast(<CustomToast message={'Deleted Successfully'} />, {
+        position: "top-center",
+      });
+      navigate('/')
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+    }
+  }
+)
 export const register = createAsyncThunk(
   'auth/register',
   async ({rdata,navigate})=>{
