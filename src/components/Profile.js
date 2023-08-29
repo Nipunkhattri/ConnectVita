@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 const Profile = ({ Route }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading , setloading] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isPopupOpen1, setPopupOpen1] = useState(false);
   const [isPopupOpen2, setPopupOpen2] = useState(false);
@@ -34,7 +35,7 @@ const Profile = ({ Route }) => {
   const { id } = useParams();
   const _id = id;
   const handlenavigate3 = () => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     setPopupOpen2(true);
   };
   const handlenavigate4 = () => {
@@ -77,9 +78,7 @@ const Profile = ({ Route }) => {
     dispatch(fetctPro(_id));
   }, [_id]);
   
-  const handleeditexp = () => {
-    navigate("/expEdit");
-  };
+
   const handleEditPro = () => {
     navigate("/ProEdit");
   };
@@ -118,8 +117,11 @@ const Profile = ({ Route }) => {
     rid:_id
   }
 
+  const [send,setsend] = useState(false)
+
   const followNow = () =>{
     dispatch(addfollower(data));
+    setsend(true);
   }
 
   // ---------------------------------------------
@@ -129,7 +131,7 @@ const Profile = ({ Route }) => {
     headline:result?.headline?result?.headline:"",
     Education:result?.Education?result?.Education:"",
     Country:result?.Country?result?.Country:"",
-    id:result?._id?result?._id:"",
+    id:result?._id || "",
     City:result?.City?result?.City:"",
     CurrentPos:result?.CurrentPos?result?.CurrentPos:""
   })
@@ -150,26 +152,79 @@ const Profile = ({ Route }) => {
     </div>
   );
 
+  // const sendataa = (form1) =>{
+  //   if(form1.id == '' || form1.id == undefined ){
+  //     setform1({
+  //       ...form1,
+  //       id: result?._id || user?._id
+  //     });
+  //     sendataa(form1);
+  //   }
+  //   else{
+  //     dispatch(setform1p({form1,navigate})).then(()=>{
+  //       setPopupOpen(false);
+  //       window.location.reload();
+  //     }).catch((error)=>{
+  //       console.log(error)
+  //     })
+  //   }
+  // }
 
-  const handlesubmit = () =>{
-    if(form1.firstname == '' || form1.lastname == '' || form1.id == '' || form1.id == undefined || form1.headline == '' || form1.City == '' || form1.Country == "" || form1.Education == ''){
+  
+  const sendataa = async (form1) => {
+    while (form1.id === '' || form1.id === undefined) {
+      setadata({
+        ...form1,
+        id: result?._id || '',
+      });
+      // Wait a bit to avoid blocking the loop
+      await new Promise((resolve) => setTimeout(resolve, 100)); // Adjust the delay as needed
+    }
+    
+    try {
+      dispatch(setform1p({form1,navigate})).then(()=>{
+        setPopupOpen(false);
+        window.location.reload();
+      }).catch((error)=>{
+        console.log(error)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlesubmit = async () =>{
+    console.log("HII");
+    if(form1.firstname == '' || form1.lastname == '' || form1.headline == '' || form1.City == '' || form1.Country == "" || form1.Education == ''){
       toast(<CustomToast message="Please fill the details" />, {
         position: "top-center",
       });
       return;
     } 
-    dispatch(setform1p({form1,navigate})).then(()=>{
-      setPopupOpen(false);
-      window.location.reload();
-    }).catch((error)=>{
-      console.log(error)
-    })
+    if(form1.id == '' || form1.id == undefined ){
+      setform1({
+        ...form1,
+        id: result?._id || user?._id
+      });
+    }
+    await sendataa(form1);
   }
+
+  // useEffect(()=>{
+  //   if(form1.id != '' || form1.id != undefined){
+  //     dispatch(setform1p({form1,navigate})).then(()=>{
+  //       setPopupOpen(false);
+  //       window.location.reload();
+  //     }).catch((error)=>{
+  //       console.log(error)
+  //     })
+  //   }
+  // },[form1?.id != ''])
   // -------------------------------------------
 
   const [adata,setadata] = useState({
     textarea:(result?.About)?(result?.About):"",
-    id:result?._id?result?._id:""
+    id:result?._id ||""
   })
 
   const handlechange01 = (e) =>{
@@ -178,14 +233,37 @@ const Profile = ({ Route }) => {
   }  
   console.log(adata);
 
-  const savedata = (e) =>{
-    e.preventDefault();
-    dispatch(setaboutdata({adata,navigate})).then(()=>{
+  const sendaboutdata = async (adata) => {
+    while (adata.id === '' || adata.id === undefined) {
+      setadata({
+        ...adata,
+        id: result?._id || '',
+      });
+      // Wait a bit to avoid blocking the loop
+      await new Promise((resolve) => setTimeout(resolve, 100)); // Adjust the delay as needed
+    }
+    
+    try {
+      await dispatch(setaboutdata({ adata, navigate }));
       setPopupOpen1(false);
       window.location.reload();
-    }).catch((error)=>{
-      console.log(error)
-    })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const savedata = async (e) =>{
+    e.preventDefault();
+    if(adata.id == '' || adata.id == undefined ){
+      setadata({
+        ...adata,
+        id: result?._id || ''
+      });
+    }
+    console.log(adata);
+    // await console.log("Hii");
+
+    await sendaboutdata(adata);
   }
 
   // ------------------------------------------------------------
@@ -529,10 +607,11 @@ out to next Level!..</p>
                     className="absolute top-30  edit1 mr-20"
                     onClick={handlenavigate3}
                   />
+                  <Link to={'/expEdit'}>
                   <AiOutlineEdit
                     className="absolute top-30 edit"
-                    onClick={handleeditexp}
-                  />
+                    />
+                  </Link>
                 </div>
                 {exp?.map((item, index) => {
                   return (
@@ -596,10 +675,11 @@ out to next Level!..</p>
                     className="absolute top-30  edit1 mr-20"
                     onClick={handlenavigate4}
                   />
+                  <Link to={'/ProEdit'}>
                   <AiOutlineEdit
                     className="absolute top-30 edit"
-                    onClick={handleEditPro}
-                  />
+                    />
+                  </Link>
                 </div>
               </div>
               {Pro?.map((item, index) => {
@@ -681,16 +761,17 @@ out to next Level!..</p>
             <button className="close-button" onClick={() => setPopupOpen1(false)}>
               Close
             </button>
-            <div className=" bg-white border-2 rounded-md border-slate-300 ">
+            <div className=" bg-white border-2 rounded-md border-slate-300">
         <div className="w-full h-20 bg-slate-200 flex justify-between p-4 items-center">
             <h2 className="text-xl">Edit About</h2>
             {/* <ImCross onClick={handlereturn} className='cursor-pointer'/> */}
         </div>
         <div className="h-90 p-3 mb-2 w-full ">
           <h2 className="text-slate-500 mb-3">You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</h2>
-          <textarea id="" className="p-2 border-2 border-slate-400 rounded-md" cols="85" rows="10" name="textarea" value={adata.textarea} onChange={handlechange01}></textarea>
+          <textarea id="" className="p-2 border-2 border-slate-400 rounded-md w-full h-72" // Add this inline style
+ name="textarea" value={adata.textarea} onChange={handlechange01}></textarea>
         </div>
-        <div className="text-right w-full">
+        <div className="text-right w-full mb-6">
           <button className="h-10 bg-blue-600 text-white w-32 mr-4 rounded-md text-xl" onClick={savedata}>Save</button>
         </div>
       </div>
@@ -882,9 +963,16 @@ out to next Level!..</p>
                       </>
                     }
                   </p>
-                  <button className="h-10 w-24 rounded-2xl mt-2 text-white bg-blue-600" onClick={followNow}>
+                    {
+                  send?
+                  <button disabled className="h-10 w-24 rounded-2xl mt-2 text-white bg-blue-600" >  
+                  Connect
+                </button>
+                  :
+                  <button className="h-10 w-24 rounded-2xl mt-2 text-white bg-blue-600" onClick={followNow}>  
                     Connect
                   </button>
+                  }
                 </div>
                 {/* <AiOutlineEdit
                   className="absolute top-30 edit"

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
   const [imageFile, setImageFile] = useState(null);
+  const [loading , setloading] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,7 +33,13 @@ const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
   console.log(data1);
   const upload = () =>{
     if (imageFile != '') {
-      dispatch(uploadImage(data1,navigate));
+      setloading(true);
+      dispatch(uploadImage(data1,navigate))
+      .then(()=>{
+        setloading(true)
+      }).catch((error)=>{
+        console.log(error)
+      });
     }
     else{
       toast(<CustomToastError message={'Please.Upload An Image'} />, {
@@ -44,6 +51,15 @@ const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
   return isOpen ? (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75'>
     <div className='w-96 bg-white p-8 rounded-lg shadow-md'>
+        {loading ? 
+         <div className="bouncing-loader-container">
+         <div className="bouncing-loader">
+           <div></div>
+           <div></div>
+           <div></div>
+         </div>
+       </div>
+      : <div>{/* Render the fetched data */}</div>}
         <div className='flex justify-between mb-4'>
         <h1 className='text-2xl font-semibold mb-4'>Upload Your Image</h1>
         <button className='bg-blue-500 text-white px-4 py-2 rounded-md' onClick={onClose}>

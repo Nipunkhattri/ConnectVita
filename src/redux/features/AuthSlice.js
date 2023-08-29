@@ -250,7 +250,7 @@ export const authlogin = createAsyncThunk(
       toast(<CustomToast message={res.data.message} />, {
         position: "top-center",
       });
-      navigate('/select');
+      navigate('/');
       return res;
     } catch (error) {
       console.log(error);

@@ -6,6 +6,17 @@
     font-size: 15px;
     /* background-color: ; */
 }
+.pheight{
+    height: 300px;
+}
+.image{
+    height: 200px;
+    width: 300px;
+}
+.video{
+    height: 200px;
+    width: 300px;
+}
 
 .text{
     font-size: 14px;
@@ -313,7 +324,7 @@
     background-color: gray;
 }
 .hei1{
-    height: 500px;
+    height: 444px;
     /* margin-bottom: 30px; */
     width: 400px;
     background-color: rgb(212, 224, 235);

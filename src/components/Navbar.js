@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import link from "../assests/linkedin.png"
+import link from "../assests/Component 4 (2).png"
 import {AiOutlineSearch} from "react-icons/ai"
 import {AiFillHome} from "react-icons/ai"
 import {BsFillPeopleFill} from "react-icons/bs"
@@ -9,7 +9,7 @@ import {IoMdNotifications} from "react-icons/io"
 import {BsFillPersonFill} from "react-icons/bs"
 import {BiLogOut} from "react-icons/bi"
 import './Navbar.css'
-import linkk from '../assests/lik-removebg-preview.png'
+import linkk from '../assests/Component 6 (1).png'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -38,10 +38,10 @@ const Navbar = () => {
     setIsInputFocused(false);
   };
 
-  const handleLinkClick = (id,link) => {
+  const handleLinkClick = (id) => {
     console.log(id);
     navigate(`/profile/${id}`)
-    setActiveLink(link);
+    // setActiveLink(link);
   };
   const handlesearch = (id) => {
     console.log(id);
@@ -114,13 +114,15 @@ const Navbar = () => {
     {
     login==true?
     <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10 font-serif'>
-      <div className='h-full w-5/12 flex items-center justify-center'>
-        <img className='h-8 w-8' src={link} alt="" />
+      <div className='h-full w-5/12 flex items-center ml-10'>
+        <img className='h-11 w-11 mr-5' src={link} alt="" />
+        {/* <div className='flex'> */}
         <AiOutlineSearch className='relative left-6 text-lg font-extrabold text-slate-500'/>
         <input onFocus={handleInputFocus}
       onBlur={handleInputBlur} value={searchTerm} onChange={handleSearchChange} type="text"  placeholder='Search' className='place h-9 w-72 pl-8 focus:outline-none  rounded-sm border-0 bg-navinput' />
         {/* <input className='h-10 w-80 rounded-xl bg-slate-900'></input> */}
       </div>
+      {/* </div> */}
       {matchingNames?
         <ul className="dropdown-list">
           {matchingNames?.map((item, index) => (
@@ -135,11 +137,11 @@ const Navbar = () => {
         <AiFillHome className='text1 ml-1'/>
         <h1 className='text'>Home</h1>
         </Link>
-        <button style={linkStyle('link3')}
+        <Link to={"/event"} style={linkStyle('link3')}
          className='flex-col mt-2 flex items-center'>
-        <FaSuitcase className='text1 ml-1'onClick={handleEvent} />
+        <FaSuitcase className='text1 ml-1'/>
         <h1 className='text'>Events</h1>
-        </button>
+        </Link>
         <Link style={linkStyle('link4')}
         onClick={() => handleLinkClick('link4')} className='flex-col mt-2 flex items-center'>
         <AiOutlineMessage className='text1 ml-1'/>
@@ -150,8 +152,7 @@ const Navbar = () => {
         <IoMdNotifications className='text1 ml-1'/>
         <h1 className='text'>Notification</h1>
         </Link>
-        <button  style={linkStyle('link6')}
-        onClick={() => handleLinkClick(user?._id,'link6')} className='flex-col mt-2 flex w-14 items-center'>
+        <Link to={`/profile/${user?._id}`} className='flex-col mt-2 flex w-14 items-center'>
           {
             user?.image?
             <img className='hda' src={user?.image?(user?.image):logo} alt="" />
@@ -161,20 +162,20 @@ const Navbar = () => {
             <h1 className='text'>Me</h1>
             </>
           }
-        </button>
-        <button  className='flex-col mt-2 flex items-center' onClick={handlelogout}>
+        </Link>
+        <Link  className='flex-col mt-2 flex items-center' onClick={handlelogout}>
         <BiLogOut className='text1 ml-1'/>
         <h1 className='text'>LogOut</h1>
-        </button>
+        </Link>
       </div>
     </div>
     :
     <>
-    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex justify-between ml-3 mr-3 items-center z-10 font-serif'>
-       <img src={linkk} className='h-8 w-50 ' alt="" />
+    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex justify-between  mr-3 items-center z-10 font-serif'>
+       <img src={linkk} className='h-12 w-50 ' alt="" />
        <div className='h-40 w-80 flex justify-center items-center'>
-        <button className='h-10 w-28 mr-5  rounded-md' onClick={handleReg}>Join Now</button>
-        <button className='h-10 w-28 border-2 border-slate-500 rounded-md'>Sign In</button>
+        <Link to={"/register"} className='h-10 w-28 flex items-center justify-center mr-5  rounded-md'>Join Now</Link>
+        <Link to={"/login"} className='h-10 w-28 border-2 flex items-center justify-center border-slate-500 rounded-md'>Sign In</Link>
        </div>
     </div>
     </>

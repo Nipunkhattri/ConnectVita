@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import logo from '../assests/logo.png';
 import './Navbar.css'
+import { Link } from 'react-router-dom'
 import {AiFillCodeSandboxSquare} from "react-icons/ai"
 import {BsFillBookmarkFill} from "react-icons/bs"
 import {BsCardImage} from "react-icons/bs"
@@ -93,23 +94,27 @@ const Home = () => {
     }
   }
 
-  const handlereject = (id) =>{
-    setdata({...data, rid:id, request:"reject"});
+  const handlereject = async (id) =>{
+    await setdata({...data, rid:id, request:"reject"});
+    if(data?.request != '' && data?.rid != ''){
     dispatch(sendrequest(data)).then(()=>{
       toast(<CustomToast message="Request Rejected"/>, {
         position: "top-center",
       }); 
       window.location.reload();
     })
+    }
   }
 
   const data5 ={
     id:user?._id,
     rid:''
   }
+  const [send,setsend] = useState(false)
 
   const followNow = (id) =>{
     const data6 = { ...data5, rid: id }; // Update the 'rid' property with the provided 'id'
+    setsend(true);
     dispatch(addfollower(data6));
   }
   const [like,setlike] = useState(false)
@@ -178,7 +183,9 @@ const Home = () => {
       <div className='wwd h-full flex mt-5 mr-5 items-end flex-col'>
         <div className='h-2/3 leftup w-7/12 bg-white rounded-2xl'>
           <div className='h-16 w-full rounded-t-lg bg-black'>
-              <img src={user?.image?(user?.image):logo} alt="" className='h-20 w-20 relative top-6 left-20 rounded-full bg-slate-300' onClick={()=>handlenavigate(user?._id)}/>
+            <Link to={`/profile/${user?._id}`}>
+              <img src={user?.image?(user?.image):logo} alt="" className='h-20 w-20 relative top-6 left-20 rounded-full bg-slate-300'/>
+            </Link>
           </div>
           <div className='h-3/5 w-full flex flex-col mt-5 items-center mid bg-white'>
             <br />
@@ -215,7 +222,9 @@ const Home = () => {
       <div className=' divv'>
         <div className='wd h-36 m-5 bg-white'>
             <div className='w-full hsdd flex items-center h-3/6 '>
-              <img className='hd' src={user?.image?user?.image:logo} alt="" onClick={() => handlenavigate(user?._id)} />
+            <Link to={`/profile/${user?._id}`}>
+              <img className='hd' src={user?.image?user?.image:logo} alt=""  />
+              </Link>
               <input type="text" placeholder='Start a Post' className='h-3/5 with ml-3' name="" id="" />
             </div>
             <div className='w-full h-16 flex  items-center'>
@@ -245,9 +254,13 @@ const Home = () => {
                 <div className='width block m-auto mt-4 h-full '>
                 <div className='h-20 w-full flex justify-between items-center' key={index}>
             <div className='w-60 h-full flex'>
-              <img src={item?.image} onClick={()=>handlenavigate(item.id)} className='h-full w-20 p-1 cursor-pointer' alt="" />
+              <Link to={`/profile/${item.id}`}>
+              <img src={item?.image} className='h-full w-20 p-1 cursor-pointer' alt="" />
+              </Link>
               <div className='h-full w-40 flex ml-1 flex-col mt-1'>
-                <h1 className='text-lg cursor-pointer' onClick={()=>handlenavigate(item.id)} >{item?.name}</h1>
+                <Link to={`/profile/${item.id}`}>
+                <h1 className='text-lg cursor-pointer' >{item?.name}</h1>
+                </Link>
                 <h1 className='text-gray-500 text-sm'>Made With &#10084;&#65039;</h1>
               </div>
             </div>
@@ -256,7 +269,10 @@ const Home = () => {
                 (item?.id == user?._id)?
                 <></>
                 :
-              <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'   onClick={() => followNow(item?.id)}><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
+                send?
+                <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
+                :
+                <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700' onClick={() => followNow(item?.id)}><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
               }
             </div>
           </div>

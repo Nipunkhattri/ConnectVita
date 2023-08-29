@@ -4,6 +4,7 @@ import { register } from '../redux/features/AuthSlice';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
 
@@ -88,8 +89,7 @@ const Register = () => {
             or
             <hr  className='hrw h-0.5 text-black'/>
             </div>
-            <button className='h-12 mt-3 w-80 border-2 border-slate-400 ml-8 text-black text-lg rounded-md'>Continue with Google</button>
-            <h1 className='text-center mt-3 text-md font-medium'>Already on LinkedIn?<span className='text-blue-600'>Sign in</span></h1>
+      <h1 className='text-center mt-3 text-md font-medium'>Already on LinkedIn?<span className='text-blue-600'><Link to="/login"> Sign in</Link></span></h1>
       </div>
     </div>
   )

@@ -28,7 +28,8 @@ const Login = () => {
     Password: "",
   });
   const [dec , setdec] = useState(null);
-
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+  console.log(clientId);
   const [gdata,setgdata] = useState({
     email:'',
     image:''
@@ -79,6 +80,7 @@ const Login = () => {
       return;
     }
 
+    
     setEmail(ldata.email);
 
     await dispatch(authlogin({ ldata, navigate }));
@@ -121,7 +123,7 @@ const Login = () => {
             or
             <hr className="hrw h-0.5 text-black" />
           </div>
-          <GoogleOAuthProvider clientId="515280682344-0iirk2cmibrjjcrtimgc9jh3n10bgsoe.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId={clientId}>
             <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   var decoded = jwt_decode(credentialResponse.credential);

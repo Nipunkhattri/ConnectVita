@@ -42,7 +42,7 @@ const ImageUpload = () => {
             <img
                 src={imagePreview}
                 alt='Image Preview'
-                className='mx-auto max-w-full h-auto mb-4'
+                className='pheight max-w-full mb-4'
             />
         )}
         {imagePreview && (

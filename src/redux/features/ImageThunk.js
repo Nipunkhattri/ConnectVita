@@ -22,7 +22,7 @@ export const uploadImage = (data1,navigate) => async dispatch => {
     formData.append('id', data1._id);
     console.log(formData);
     console.log("*************************");
-    const response = await axios.post('http://localhost:5000/upload', formData);
+    const response = await axios.post('https://linkedin-backend-be7n.onrender.com/upload', formData);
     console.log('Image uploaded:', response.data.secure_url);
     console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     // const data = response.data.secure_url;

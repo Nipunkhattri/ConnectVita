@@ -94,7 +94,12 @@ const PersonPost = () => {
 
       <div className='h-full w-24 mt-5 mr-5'>
       <div className='delete-button' onClick={() => handledelete(item._id)}>
-    <AiFillDelete className='cursor-pointer text-xl text-red-500' />
+        {
+          (item?.id == user?._id)?
+          <AiFillDelete className='cursor-pointer text-xl text-red-500' />
+          :
+          <></>
+        }
   </div>
         {/* <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1> */}
       </div>
