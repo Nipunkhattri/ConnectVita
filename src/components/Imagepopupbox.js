@@ -3,9 +3,12 @@ import { ImCross } from 'react-icons/im';
 import './Imagepopupbox.css'; // Create this CSS file for styling
 import { savedata } from '../redux/features/PostSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import './BouncingLoader.css'; // Styles for the loader
 const Imagepopupbox = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text,setText] = useState('');
+  const [loading , setloading] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
   const handleImageChange = (e) => {
@@ -25,19 +28,45 @@ const Imagepopupbox = ({ onClose }) => {
   };
   console.log(data);
 
+  const CustomToast = ({ message }) => (
+    <div style={{ backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+      {message}
+    </div>
+  );
+
   const handleSave = () =>{
     if(data.textwritten != '' && data.Image != ''){
       const formData = new FormData();
       formData.append('image',data.Image);
       formData.append('text',data.textwritten);
       formData.append('id',data.id);
-      dispatch(savedata({formData,dispatch}));
+      setloading(true);
+      dispatch(savedata({formData,dispatch})).
+      then(()=>{
+        setloading(false);
+        window.location.reload();
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
+    else{
+      toast(<CustomToast message="Please fill the details" />, {
+        position: "top-center",
+      });
     }
   }
-
   return (
-    <div className="popup-container">
+    <div className="popup-container font-serif">
       <div className="popup-content">
+      {loading ? 
+         <div className="bouncing-loader-container">
+         <div className="bouncing-loader">
+           <div></div>
+           <div></div>
+           <div></div>
+         </div>
+       </div>
+      : <div>{/* Render the fetched data */}</div>}
         <h1 className='text-2xl font-semibold italic'>Make A Post</h1>
         <button className="close-button" onClick={onClose}>
           <ImCross />

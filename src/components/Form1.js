@@ -7,11 +7,12 @@ import { useSelector } from 'react-redux'
 const Form1 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlereturn = () =>{
-    navigate('/profile')
-  }
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
   console.log(user)
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
   const [form1,setform1]=useState({
     firstname:user.FirstName?user.FirstName:"",
     lastname:user.lastname?user.lastname:"",

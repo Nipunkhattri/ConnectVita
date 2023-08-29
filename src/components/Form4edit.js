@@ -6,12 +6,14 @@ import { getProeditId, setproject, updatePro } from '../redux/features/AuthSlice
 const Form4edit = ({Route}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlereturn = () => {
-    navigate("/profile");
-  };
-
+  
   const location = useLocation();
-
+  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
+  
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
   const _id = location.state.id;
 
 //   const [data,setEditedData] = useState(null);
@@ -27,7 +29,6 @@ const Form4edit = ({Route}) => {
       console.log(err);
   });
   },[])
-  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
 
   const [pdata,setpdata] = useState({
     ProjectName:"",

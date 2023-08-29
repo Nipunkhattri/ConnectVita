@@ -8,12 +8,14 @@ const Form3edit = ({Route}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const handlereturn = () => {
-    navigate("/profile");
-  };
-
+  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
+  
   const [data ,setEditedData] = useState(null);
-
+  
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
   const _id = location.state.id;
   console.log(_id);
 
@@ -31,7 +33,6 @@ const Form3edit = ({Route}) => {
 
   console.log(data);
 
-  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
 
   const [Edata,setEdata] = useState({
     title:"",
@@ -67,6 +68,12 @@ const Form3edit = ({Route}) => {
   const savedata = (e) =>{
     e.preventDefault();
     dispatch(updateExp({Edata,navigate}))
+    .then(() => {
+    navigate(`/profile/${user?._id}`)
+  })  
+  .catch((err) => {
+      console.log(err);
+  });
     // dispatch(setExperience({Edata,navigate}))
   }
 

@@ -7,11 +7,12 @@ import { setExperience } from "../redux/features/AuthSlice";
 const Form3 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlereturn = () => {
-    navigate("/profile");
-  };
-
+  
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
 
   const [Edata,setEdata] = useState({
     title:"",

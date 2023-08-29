@@ -3,10 +3,13 @@ import { useDispatch } from "react-redux";
 import { register } from '../redux/features/AuthSlice';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
   console.log(isAuthenticated);
   useEffect(()=>{
@@ -26,14 +29,51 @@ const Register = () => {
 
   console.log(rdata)
 
-  const handleSignIn = (e) =>{
+  const CustomToast = ({ message }) => (
+    <div style={{ backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+      {message}
+    </div>
+  );
+
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+  
+
+  const handleSignIn = async (e) =>{
     e.preventDefault();
-    dispatch(register({rdata,navigate}));
+    if(rdata.email == '' || rdata.Password == ''){
+      toast(<CustomToast message="Please fill the details" />, {
+        position: "top-center",
+      });
+      return;
+    }
+      const emailIsValid = isValidEmail(rdata.email);
+
+      if (!emailIsValid) {
+        toast(<CustomToast message="Invalid email" />, {
+          position: "top-center",
+        });
+        return;
+      }
+    
+      if (rdata.Password.length < 5) {
+        toast(<CustomToast message="Password should be at least 8 characters long" />, {
+          position: "top-center",
+        });
+        return;
+      }
+
+      setEmail(rdata.email);
+      // Assuming `dispatch` is an asynchronous action
+      await dispatch(register({ rdata, navigate }));
   }
 
 
   return (
-    <div className='h-screen flex flex-col items-center justify-center w-full pt-16 bg-slate-500'>
+    <div className='h-screen flex flex-col items-center justify-center w-full pt-16 bg-slate-500 font-serif'>
       <h1 className='text-3xl mb-7'>Make the most of your professional life</h1>
       <div className='hei1'>
       <h2 className='text-3xl p-4'>Join Linkedin</h2>

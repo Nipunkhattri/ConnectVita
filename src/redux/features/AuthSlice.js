@@ -2,32 +2,55 @@ import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from '../api';
 import {toast} from 'react-toastify'
 
+const CustomToastError = ({ message }) => (
+  <div style={{ backgroundColor: '#333', color: 'Red', padding: '10px' }}>
+    {message}
+  </div>
+);
+
+const CustomToast = ({ message }) => (
+  <div style={{ backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+    {message}
+  </div>
+);
+
 export const setform1p = createAsyncThunk(
   'auth/form1',
-  async ({form1,navigate}) =>{
+  async ({form1,navigate}, { rejectWithValue }) =>{
     try {
       const res = await api.form1data(form1);
       console.log(res);
-      toast.success('details added successfully');
-      navigate('/profile');
+      toast(<CustomToast message="Details added succesfully" />, {
+        position: "top-center",
+      });      // navigate('/profile');
+      // window.location.reload();
       return res;
     } catch (error) {
       console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data);
     }
   }
 )
 
 export const setExperience = createAsyncThunk(
   'auth/exp',
-  async ({Edata,navigate})=>{
+  async ({Edata,navigate}, { rejectWithValue })=>{
     try {
       const res = await api.setexp(Edata);
       console.log(res);
-      toast.success('experience added successfully');
-      navigate('/profile');
+      toast(<CustomToast message="Experience added succesfully" />, {
+        position: "top-center",
+      });       // navigate('/profile');
       return res;
     } catch (error) {
       console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data);
     }
   }
 )
@@ -39,7 +62,7 @@ export const updateExp = createAsyncThunk(
       console.log(Edata);
       const res = await api.updateExpdata(Edata);
       toast.success("Updated Successfully");
-      navigate('/profile');
+      // navigate('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +76,7 @@ export const updatePro = createAsyncThunk(
       // console.log(Edata);
       const res = await api.updateProdata(pdata);
       toast.success("Updated Successfully");
-      navigate('/profile');
+      // navigate('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -61,16 +84,22 @@ export const updatePro = createAsyncThunk(
 )
 export const setaboutdata = createAsyncThunk(
   'auth/about',
-  async ({adata,navigate})=>{
+  async ({adata,navigate}, { rejectWithValue })=>{
     try {
       console.log(adata);
       const res = await api.setabout(adata);
       console.log(res);
-      toast.success('about added successfully');
-      navigate('/profile');
+      toast(<CustomToast message="About Added"/>, {
+        position: "top-center",
+      });
+      // navigate('/profile');
       return res;
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data);
     }
   }
 )
@@ -81,6 +110,19 @@ export const getdata = createAsyncThunk(
     try {
       console.log(_id);
       const res = await api.getdata(_id);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
+
+export const getuserdata = createAsyncThunk(
+  'auth/getuserdata',
+  async (_id) =>{
+    try {
+      const res = await api.getuser(_id);
       console.log(res);
       return res;
     } catch (error) {
@@ -142,32 +184,128 @@ export const fetctPro = createAsyncThunk(
   }
 )
 
-export const setproject = createAsyncThunk(
-  'auth/Productadd',
-  async({pdata,navigate}) => {
+export const addfollower = createAsyncThunk(
+  'auth/follow',
+  async (data6) =>{
     try {
-      const res = await api.setpdata(pdata)
+      const res = await api.addfollow(data6);
       console.log(res);
-      toast.success("Project Added");
-      navigate('/profile');
-      return res;
+      toast(<CustomToast message="Connection request Send"/>, {
+        position: "top-center",
+      });      // window.location.reload();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+    }
+  }
+)
+
+export const sendrequest = createAsyncThunk(
+  'auth/request',
+  async (data) =>{
+    try {
+      const res = await api.sendreq(data);
+      console.log(res);
+      window.location.reload();
+      return res.data;
     } catch (error) {
       console.log(error);
     }
   }
 )
 
+export const setproject = createAsyncThunk(
+  'auth/Productadd',
+  async({pdata,navigate}, { rejectWithValue }) => {
+    try {
+      const res = await api.setpdata(pdata)
+      console.log(res);
+      toast(<CustomToast message="Project added succesfully" />, {
+        position: "top-center",
+      });      
+            // navigate('/profile');
+      return res;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data);
+    }
+  }
+)
+
 export const authlogin = createAsyncThunk(
   'auth/login',
-  async ({ldata,navigate}) =>{
+  async ({ldata,navigate}, { rejectWithValue }) =>{
     try {
       const res = await api.AdminLogin(ldata);
       console.log(res);
-      toast.success('login successfully');
+      toast(<CustomToast message={res.data.message} />, {
+        position: "top-center",
+      });
+      navigate('/select');
+      return res;
+    } catch (error) {
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+)
+
+export const googleauth = createAsyncThunk(
+  'auth/google',
+  async ({gdata,navigate}, {rejectWithValue})=>{
+    try {
+        const res = await api.GoogleLogin(gdata);
+        console.log(res);
+        navigate('/');
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+          position: "top-center",
+        });
+        return rejectWithValue(error.response.data.message);
+      }
+  }
+)
+
+export const saveselect = createAsyncThunk(
+  'auth/select',
+  async ({userType,navigate},{rejectWithValue})=>{
+    try {
+      const res = await api.selectOption(userType);
+      console.log(res);
+      toast(<CustomToast message={res.data.message} />, {
+        position: "top-center",
+      });
       navigate('/');
       return res;
     } catch (error) {
-      toast.error('Invalid Crediantials');
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+)
+
+export const getname = createAsyncThunk(
+  'auth/getname',
+  async () =>{
+    try {
+      const res = await api.getnamearray();
+      console.log(res);
+      return res.data;
+    } catch (error) {
       console.log(error);
     }
   }
@@ -180,12 +318,17 @@ export const register = createAsyncThunk(
       console.log(rdata);
       const response = await api.signUp(rdata);
       console.log(response);
+      toast(<CustomToast message={response.data.message} />, {
+        position: "top-center",
+      });
       navigate('/login');
-      toast.success("Registered successfully");
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-    }
+      console.log(error);
+      toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
+        position: "top-center",
+      });
+      }
   }
 )
 
@@ -202,14 +345,15 @@ const AuthSlice = createSlice({
         data:persistedState,
         exp:null,
         Pro:null,
-        image:null
+        image:null,
+        profile:null
     },
     reducers:{
         setUser: (state, action) => {
             state.data = action.payload;
           },
           getdata:(state,action) =>{
-            state.data = action.payload;
+            state.profile = action.payload;
           },
           login: (state , action) => {
             state.isAuthenticated = action.payload.data.isauth;
@@ -238,16 +382,43 @@ const AuthSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       },
+      [googleauth.pending]: (state, action) => {
+        state.loading = true;
+      },
+      [googleauth.fulfilled]: (state, action) => {
+        state.loading = false;
+        localStorage.setItem("auth", JSON.stringify(action.payload.data.token ));
+        localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+        state.data = action.payload;
+        state.isAuthenticated = action.payload.data.token;
+      },
+      [googleauth.rejected]: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
       [getdata.pending]: (state, action) => {
         state.loading = true;
       },
       [getdata.fulfilled]: (state, action) => {
         state.loading = false;
         localStorage.setItem("profiledata", JSON.stringify({ ...action.payload }));
-        state.data = action.payload;
+        state.profile = action.payload;
         // state.isAuthenticated = action.payload.data.token;
       },
       [getdata.rejected]: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      [getuserdata.pending]: (state, action) => {
+        state.loading = true;
+      },
+      [getuserdata.fulfilled]: (state, action) => {
+        state.loading = false;
+        localStorage.setItem("userdata", JSON.stringify({ ...action.payload }));
+        state.data = action.payload;
+        // state.isAuthenticated = action.payload.data.token;
+      },
+      [getuserdata.rejected]: (state, action) => {
         state.loading = false;
         state.error = action.payload;
       },

@@ -7,14 +7,18 @@ import {FaSuitcase} from "react-icons/fa"
 import {AiOutlineMessage} from "react-icons/ai"
 import {IoMdNotifications} from "react-icons/io"
 import {BsFillPersonFill} from "react-icons/bs"
+import {BiLogOut} from "react-icons/bi"
 import './Navbar.css'
 import linkk from '../assests/lik-removebg-preview.png'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { useNavigate } from 'react-router-dom'
 import logo from '../assests/my image.jpeg';
+import { getname } from '../redux/features/AuthSlice'
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeLink, setActiveLink] = useState('');
   const [isInputFocused, setIsInputFocused] = useState(false);
   const handleInputFocus = () => {
@@ -39,6 +43,14 @@ const Navbar = () => {
     navigate(`/profile/${id}`)
     setActiveLink(link);
   };
+  const handlesearch = (id) => {
+    console.log(id);
+    navigate(`/profile/${id}`)
+    setMatchingNames([])
+    setSearchTerm('')
+    window.location.reload();
+    // setActiveLink(link);
+  };
 
   const linkStyle = (link) => ({
     color: link === activeLink ? 'black' : '#666666',
@@ -54,30 +66,80 @@ const Navbar = () => {
   const handleReg = () =>{
     navigate('/register')
   }
+  
+  const handleEvent = () =>{
+    navigate('/event');
+  }
+
+  const handlelogout = () =>{
+    // e.preventDefault();
+    try {
+      localStorage.clear();
+      // localStorage.removeItem('auth'); // Replace 'authToken' with your token key
+      // navigate('/login');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error navigating:', error);
+    }
+  }
+  const [names,setname] = useState(null);
+
+  useEffect(()=>{
+    dispatch(getname()).then((res)=>{
+      console.log(res);
+      setname(res.payload); 
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[]);
+
+  console.log(names)
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [matchingNames, setMatchingNames] = useState([]);
+
+  const handleSearchChange = (event) => {
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
+
+    const filteredNames = names.filter((item) =>
+      item?.name.toLowerCase().includes(newSearchTerm.toLowerCase())
+    );
+    console.log(filteredNames);
+    setMatchingNames(filteredNames);
+  };
 
   return (
     <>
     {
     login==true?
-    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10'>
+    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10 font-serif'>
       <div className='h-full w-5/12 flex items-center justify-center'>
         <img className='h-8 w-8' src={link} alt="" />
         <AiOutlineSearch className='relative left-6 text-lg font-extrabold text-slate-500'/>
         <input onFocus={handleInputFocus}
-      onBlur={handleInputBlur} type="text"  placeholder='Search' className='place h-9 w-72 pl-8 focus:outline-none  rounded-sm border-0 bg-navinput' />
+      onBlur={handleInputBlur} value={searchTerm} onChange={handleSearchChange} type="text"  placeholder='Search' className='place h-9 w-72 pl-8 focus:outline-none  rounded-sm border-0 bg-navinput' />
         {/* <input className='h-10 w-80 rounded-xl bg-slate-900'></input> */}
       </div>
+      {matchingNames?
+        <ul className="dropdown-list">
+          {matchingNames?.map((item, index) => (
+            <li key={index} className='flex items-center' onClick={()=>handlesearch(item?._id)}> <img className='h-7 w-7 mr-3' src={item?.image} alt="" /> {item?.name}</li>
+          ))}
+        </ul>
+        :<></>
+      }
       <div className='flex justify-evenly w-5/12 items-center'>
         <Link to='/' style={linkStyle('link1')}
         onClick={() => handleLinkClick('link1')} className='flex-col mt-2 flex w-14 items-center'>
         <AiFillHome className='text1 ml-1'/>
         <h1 className='text'>Home</h1>
         </Link>
-        <Link style={linkStyle('link3')}
-        onClick={() => handleLinkClick('link3')}  className='flex-col mt-2 flex items-center'>
-        <FaSuitcase className='text1 ml-1'/>
-        <h1 className='text'>Jobs</h1>
-        </Link>
+        <button style={linkStyle('link3')}
+         className='flex-col mt-2 flex items-center'>
+        <FaSuitcase className='text1 ml-1'onClick={handleEvent} />
+        <h1 className='text'>Events</h1>
+        </button>
         <Link style={linkStyle('link4')}
         onClick={() => handleLinkClick('link4')} className='flex-col mt-2 flex items-center'>
         <AiOutlineMessage className='text1 ml-1'/>
@@ -88,11 +150,10 @@ const Navbar = () => {
         <IoMdNotifications className='text1 ml-1'/>
         <h1 className='text'>Notification</h1>
         </Link>
-        <Link  style={linkStyle('link6')}
-        to='/profile'
+        <button  style={linkStyle('link6')}
         onClick={() => handleLinkClick(user?._id,'link6')} className='flex-col mt-2 flex w-14 items-center'>
           {
-            user.image?
+            user?.image?
             <img className='hda' src={user?.image?(user?.image):logo} alt="" />
             :
             <>
@@ -100,12 +161,16 @@ const Navbar = () => {
             <h1 className='text'>Me</h1>
             </>
           }
-        </Link>
+        </button>
+        <button  className='flex-col mt-2 flex items-center' onClick={handlelogout}>
+        <BiLogOut className='text1 ml-1'/>
+        <h1 className='text'>LogOut</h1>
+        </button>
       </div>
     </div>
     :
     <>
-    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex justify-between ml-3 mr-3 items-center z-10'>
+    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex justify-between ml-3 mr-3 items-center z-10 font-serif'>
        <img src={linkk} className='h-8 w-50 ' alt="" />
        <div className='h-40 w-80 flex justify-center items-center'>
         <button className='h-10 w-28 mr-5  rounded-md' onClick={handleReg}>Join Now</button>

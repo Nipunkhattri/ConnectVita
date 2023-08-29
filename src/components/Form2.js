@@ -7,11 +7,12 @@ import { setaboutdata } from "../redux/features/AuthSlice";
 const Form2 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlereturn = () =>{
-    navigate('/profile')
-  }
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
-
+  
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
   const [adata,setadata] = useState({
     textarea:user.About?user.About:"",
     id:user?._id

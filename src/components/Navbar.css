@@ -6,8 +6,14 @@
     font-size: 15px;
     /* background-color: ; */
 }
+
 .text{
     font-size: 14px;
+}
+.vmp{
+    height: 129px;
+    margin-right:15px;
+    width: 85px;
 }
 .divv{
     /* height: 100%; */
@@ -27,7 +33,7 @@
     display: none;
 }
 .hei{
-    height: 495px;
+    height: 535px;
     /* margin-bottom: 2px; */
 }
 
@@ -41,11 +47,11 @@
 .mid{
     font-size: 14px;
     padding: 10px 10px;
-    height: 360px;
+    height: fit-content;
 }
 .leftup{
     width: 228px;
-    height: 66%;
+    height:fit-content;
     position: fixed;
 }
 .leftup1{
@@ -73,9 +79,16 @@
 .hhh{
     height: 80vh;
 }
+.widthp{
+    width: 53%;
+    height: auto;
+    background-color: white;
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 10px;
+}
 .width{
     width: 93%;
-    height: 691px;
+    height: auto;
     background-color: white;
     border: 1px solid rgb(211, 211, 211);
     border-radius: 10px;
@@ -125,10 +138,13 @@
     width: 100%;
 }
 .textsize1{
-    font-size: 17px;
+    font-size: 20px !important;
+}
+.textc{
+    font-size: 15px;
 }
 .hi{
-    height: 73%;
+    height: 60%;
 }
 .imgp{
     background: url('../assests/my\ image.jpeg') no-repeat center center/cover;
@@ -195,13 +211,13 @@
 .form3{
     height: 100vh;
     width: 100%;
-    background: url('../assests/Screenshot_20230729_231000.png') no-repeat center center/cover;
+    /* background: url('../assests/Screenshot_20230729_231000.png') no-repeat center center/cover; */
     /* opacity: 0.4; */
 }
 .form4{
     height: 100vh;
     width: 100%;
-    background: url('../assests/Screenshot_20230804_015133.png') no-repeat center center/cover;
+    /* background: url('../assests/Screenshot_20230804_015133.png') no-repeat center center/cover; */
     /* opacity: 0.4; */
 }
 
@@ -286,8 +302,89 @@
     height: 500px;
     /* margin-bottom: 30px; */
     width: 400px;
-    background-color: aliceblue;
+    background-color: rgb(212, 224, 235);
 }
 .expdiv{
     height: 44rem;
 }
+.comment-box{
+    height: 300px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* background-color: aqua; */
+    overflow: auto;
+}
+.btnnn{
+    width: 100px;
+}
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 600px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+.popup2 {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 750px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+.popup3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-button {
+    background-color: #f2f2f2;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+/* Add these styles at the end of your existing CSS file */
+
+.dropdown-list {
+    position: absolute;
+    top: 102%;
+    left: 196px;
+    width: 23%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .dropdown-list li {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #f0f0f0;
+  }
+  

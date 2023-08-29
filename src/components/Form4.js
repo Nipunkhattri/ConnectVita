@@ -6,12 +6,13 @@ import { setproject } from '../redux/features/AuthSlice';
 const Form4 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlereturn = () => {
-    navigate("/profile");
-  };
-
+  
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
-
+  
+  const idd = user?._id;
+  const handlereturn = () =>{
+    navigate(`/profile/${idd}`)
+  }
   const [pdata,setpdata] = useState({
     ProjectName:"",
     AboutP:"",

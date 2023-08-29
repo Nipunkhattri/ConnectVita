@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../redux/features/ImageThunk';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
   const [imageFile, setImageFile] = useState(null);
@@ -18,6 +19,11 @@ const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
       setImagePreview(previewURL);
     }
   };
+  const CustomToastError = ({ message }) => (
+    <div style={{ backgroundColor: '#333', color: 'Red', padding: '10px' }}>
+      {message}
+    </div>
+  );
   console.log(imageFile);
   const data1 = {
     imageFile : imageFile?imageFile:"",
@@ -27,6 +33,11 @@ const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
   const upload = () =>{
     if (imageFile != '') {
       dispatch(uploadImage(data1,navigate));
+    }
+    else{
+      toast(<CustomToastError message={'Please.Upload An Image'} />, {
+        position: "top-center",
+      });
     }
 }
   

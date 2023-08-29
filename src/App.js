@@ -19,6 +19,10 @@ import Form3edit from './components/Form3edit';
 import ProEdit from './components/ProEdit';
 import Form4edit from './components/Form4edit';
 import ImageUpload from './components/ImageUpload';
+import PersonPost from './components/PersonPost';
+import Event from './components/Event';
+import Comment from './components/Comment';
+import CompStud from './components/CompStud';
 
 function App() {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
@@ -42,6 +46,10 @@ function App() {
       <Route exact path='/expEdit' element={<EditExp/>}/>
       <Route exact path='/ProEdit' element={<ProEdit/>}/>
       <Route exact path='/Upload' element={<ImageUpload/>}/>
+      <Route exact path='/personalpost/:id' element={<PersonPost/>}/>
+      <Route exact path='/event' element={<Event/>}/>
+      <Route exact path='/comment/:id' element={<Comment/>}/>
+      <Route exact path='/select' element={<CompStud/>}/>
     </Routes>
     </>
     </>
