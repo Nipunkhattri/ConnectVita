@@ -22,12 +22,13 @@ import Imagepopupbox from './Imagepopupbox';
 import { addlike, fetchpost, savecomment } from '../redux/features/PostSlice';
 import EventPopupBox from './EventPopupBox';
 import { toast } from 'react-toastify';
+import SelectPopupBox from './SelectPopupBox';
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupVisible1, setPopupVisible1] = useState(false);
-
+  const [popup,setpopup] = useState(false);
   const openPopup = () => {
     setPopupVisible(true);
   };
@@ -40,23 +41,37 @@ const Home = () => {
   };
   const closePopup1 = () => {
     setPopupVisible1(false);
-  };
+  }
+  const closePopup2 = () => {
+    setpopup(false);
+  }
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
   const { post } = useSelector((state)=>({...state?.Post}))
   console.log(post);
-  console.log(user?.request);
+  console.log(user);
   const _id = user?._id;
-
   console.log(user?.select);
+  useEffect(()=>{
+    console.log(_id);
+    // console.log("######################################################")
+    dispatch(getuserdata(_id));
+  },[])
+  useEffect(()=>{
+    // dispatch(getuserdata(_id));
+    if(user?.select == undefined || user?.select == ''){
+      console.log("******************************************")
+      setpopup(true);
+    }
+    else{
+      setpopup(false)
+    }
+  },[user]);
+  // console.log(user?.select);
   useEffect(()=>{
     dispatch(fetchpost());
   },[])
-  useEffect(()=>{
-    console.log(_id);
-    dispatch(getuserdata(_id));
-    // dispatch(getdata(_id));
-  },[])
+
   console.log(isAuthenticated);
   useEffect(()=>{
     if(isAuthenticated == false){
@@ -248,6 +263,14 @@ const Home = () => {
         </div>
         <div className='w-full hhh '>
           {
+            post==null?
+            <div className='contain'>
+            <div class="loader"></div>
+            </div>
+            :
+            <></>
+          }
+          {
             post?.map((item,index)=>{
               return(
                 <>
@@ -269,8 +292,8 @@ const Home = () => {
                 (item?.id == user?._id)?
                 <></>
                 :
-                send?
-                <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700'><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
+                user?.following?.includes(item?.id)?
+                <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center border-blue-500 text-white-700'>Following</h1>
                 :
                 <h1 className='text-lg w-full h-10 rounded-xl cursor-pointer flex justify-center items-center text-blue-700' onClick={() => followNow(item?.id)}><AiFillPlusCircle className='mr-2 text-xl text-blue-500'/> Follow</h1>
               }
@@ -361,10 +384,10 @@ const Home = () => {
                 <div className='flex items-center h-16 w-11/12 bg-slate-100 ml-5 justify-evenly' key={index}>
                   <img src={item.image} className='h-10 w10 rounded-md' alt="" />
                   <h2 className='text-lg'>{item.name}</h2>
-                  <div className='h-10 w-10 bg-slate-400 items-center flex justify-center rounded-full' onClick={() => handleallow(item?.id)}>
+                  <div className='h-10 items-center flex  rounded-full' onClick={() => handleallow(item?.id)}>
                     <AiOutlineCheckCircle className='text-2xl cursor-pointer' />
                   </div>
-                  <div className='h-10 w-10 bg-slate-400 items-center flex justify-center rounded-full'onClick={() =>handlereject(item?.id)}>
+                  <div className='h-10  items-center flex  rounded-full'onClick={() =>handlereject(item?.id)}>
                     <ImCross className='text-s cursor-pointer' onClick={() =>handlereject(item?.id)}/>
                   </div>
                 </div>
@@ -376,6 +399,7 @@ const Home = () => {
     </div>
     {popupVisible && <Imagepopupbox onClose={closePopup} />}
     {popupVisible1 && <EventPopupBox onClose1={closePopup1} />}
+    {popup && <SelectPopupBox onClose2={closePopup2}/>}
     </>
   )
 }

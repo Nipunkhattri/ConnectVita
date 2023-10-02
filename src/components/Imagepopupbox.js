@@ -43,6 +43,11 @@ const Imagepopupbox = ({ onClose }) => {
       formData.append("id", data.id);
       setloading(true);
       window.scrollTo(0, 0); 
+      if(user?.FirstName == '' || user?.FirstName == undefined){
+        toast.error("First Add Your Details !")
+        onClose();
+        return;
+      }
       dispatch(savedata({ formData, dispatch }))
         .then(() => {
           setloading(false);

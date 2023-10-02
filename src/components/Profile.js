@@ -34,6 +34,7 @@ const Profile = ({ Route }) => {
   };
   const { id } = useParams();
   const _id = id;
+  console.log(_id);
   const handlenavigate3 = () => {
     window.scrollTo(0, 0);
     setPopupOpen2(true);
@@ -45,6 +46,13 @@ const Profile = ({ Route }) => {
   const { isAuthenticated } = useSelector((state) => ({ ...state.auth }));
   const { user } = useSelector((state) => ({ ...state?.auth?.data?.data }));
   const { result } = useSelector((state) => ({ ...state?.auth?.profile?.data }));
+  console.log(result);
+  useEffect(()=>{
+    console.log("hii")
+    if(result?.select == 'company'){
+      navigate(`/profilecomany/${id}`)
+    }
+  },[result])
   const { exp } = useSelector((state) => ({ ...state?.auth }));
   const { post } = useSelector((state) => ({ ...state?.Post }));
   const { Pro } = useSelector((state) => ({ ...state?.auth }));
@@ -65,7 +73,10 @@ const Profile = ({ Route }) => {
     if (_id == user?._id) {
       setmy(true);
     }
-  },[])
+    else{
+      setmy(false)
+    }
+  },[_id])
   const filteredPosts = post?.filter((post) => post.id === _id);
   // const _id = user?._id;
   useEffect(() => {
@@ -73,11 +84,10 @@ const Profile = ({ Route }) => {
   }, []);
   useEffect(() => {
     console.log(_id);
-    dispatch(getdata(_id)); 
+    dispatch(getdata(_id));
     dispatch(fetchexp(_id));
     dispatch(fetctPro(_id));
   }, [_id]);
-  
 
   const handleEditPro = () => {
     navigate("/ProEdit");
@@ -126,15 +136,30 @@ const Profile = ({ Route }) => {
 
   // ---------------------------------------------
   const [form1,setform1]=useState({
-    firstname:(result?.FirstName)?(result?.FirstName):"",
-    lastname:result?.lastname?result?.lastname:"",
-    headline:result?.headline?result?.headline:"",
-    Education:result?.Education?result?.Education:"",
-    Country:result?.Country?result?.Country:"",
-    id:result?._id || "",
-    City:result?.City?result?.City:"",
-    CurrentPos:result?.CurrentPos?result?.CurrentPos:""
+    firstname: result?.FirstName || "",
+    lastname: result?.lastname || "",
+    headline: result?.headline || "",
+    Education: result?.Education || "",
+    Country: result?.Country || "",
+    id: result?._id || "",
+    City: result?.City || "",
+    CurrentPos: result?.CurrentPos || ""
   })
+  
+  useEffect(()=>{
+    if(result?.FirstName != ''){
+      setform1({
+        firstname: result?.FirstName,
+        lastname: result?.lastname ,
+        headline: result?.headline,
+        Education: result?.Education,
+        Country: result?.Country ,
+        id: result?._id ,
+        City: result?.City ,
+        CurrentPos: result?.CurrentPos 
+      })
+    }
+  },[result])
 
   const handlechange = (e) =>{
     setform1({ ...form1, [e.target.name]: e.target.value });
@@ -168,12 +193,10 @@ const Profile = ({ Route }) => {
   //       console.log(error)
   //     })
   //   }
-  // }
-
-  
+  // }  
   const sendataa = async (form1) => {
     while (form1.id === '' || form1.id === undefined) {
-      setadata({
+      setform1({
         ...form1,
         id: result?._id || '',
       });
@@ -223,9 +246,18 @@ const Profile = ({ Route }) => {
   // -------------------------------------------
 
   const [adata,setadata] = useState({
-    textarea:(result?.About)?(result?.About):"",
+    textarea:result?.About||"",
     id:result?._id ||""
   })
+
+  useEffect(()=>{
+    if(result?.About != ''){
+      setadata({
+        textarea:result?.About,
+        id:result?._id 
+      })
+    }
+  },[result])
 
   const handlechange01 = (e) =>{
     // e.preventDefault();
@@ -427,8 +459,8 @@ const Profile = ({ Route }) => {
                 />
                 <div className="h-full  w-96 p-5 mt-10">
                   <div className="h-20 w-80 flex justify-between items-center">
-                    <img className="h-14 w-16" src={logo} alt="" />
-                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 textc uppercase">
+                    {/* <img className="h-14 w-16" src={logo} alt="" /> */}
+                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 textc uppercase  underline">
                       {result?.Education ? result?.Education : ""}
                     </h2>
                   </div>
@@ -436,8 +468,8 @@ const Profile = ({ Route }) => {
                     {
                       result?.CurrentPos?
                       <>
-                      <img className="h-14 w-16" src={logo} alt="" />
-                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 textc uppercase">
+                      {/* <img className="h-14 w-16" src={logo} alt="" /> */}
+                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 textc uppercase underline">
                       {result?.CurrentPos ? result?.CurrentPos : ""}
                     </h2>
                       </>
@@ -617,7 +649,7 @@ out to next Level!..</p>
                   return (
                     <>
                       <div className="mb-5 w-full flex pl-9 pt-4">
-                        <img src={logo} className="h-20 w-20 mr-4" alt="" />
+                        <img src={item?.image?item?.image:logo} className="h-20 w-20 mr-4" alt="" />
                         <div>
                           <h1 className="text-lg font-medium">{item.title}</h1>
                           <h3>
@@ -964,9 +996,9 @@ out to next Level!..</p>
                     }
                   </p>
                     {
-                  send?
+                  user?.following?.includes(id)?
                   <button disabled className="h-10 w-24 rounded-2xl mt-2 text-white bg-blue-600" >  
-                  Connect
+                  Following
                 </button>
                   :
                   <button className="h-10 w-24 rounded-2xl mt-2 text-white bg-blue-600" onClick={followNow}>  
@@ -980,14 +1012,14 @@ out to next Level!..</p>
                 /> */}
                 <div className="h-full  w-96 p-5 mt-10">
                   <div className="h-20 w-80 flex justify-between items-center">
-                    <img className="h-14 w-16" src={logo} alt="" />
-                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 text-base uppercase">
+                    {/* <img classNam e="h-14 w-16" src={logo} alt="" /> */}
+                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 text-base uppercase underline">
                       {result?.Education ? result?.Education : ""}
                     </h2>
                   </div>
                   <div className="h-20 w-80 flex justify-between items-center">
-                    <img className="h-14 w-16" src={logo} alt="" />
-                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 text-base uppercase">
+                    {/* <img className="h-14 w-16" src={logo} alt="" /> */}
+                    <h2 className="h-16 w-80 tracking-wide ml-2 mt-4 text-base uppercase underline">
                       {result?.CurrentPos ? result?.CurrentPos : ""}
                     </h2>
                   </div>

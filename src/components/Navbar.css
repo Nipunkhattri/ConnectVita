@@ -157,6 +157,9 @@
 .textsize1{
     font-size: 20px !important;
 }
+.textsize2{
+    font-size: 15px !important;
+}
 .textc{
     font-size: 15px;
 }
@@ -392,8 +395,8 @@
 .dropdown-list {
     position: absolute;
     top: 102%;
-    left: 196px;
-    width: 23%;
+    left: 122px;
+    width: 19%;
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -412,4 +415,136 @@
   .dropdown-list li:hover {
     background-color: #f0f0f0;
   }
+
+  .list{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* justify-content: ; */
+    /* border: 2px solid red; */
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .content{
+    height: 90%;
+  }
+  .input-chat{
+    height: 66.2px;
+    display: flex;
+  }
+
+  .company-profile{
+    /* overflow: scroll; */
+  }
+  .home{
+    height: 490px;
+  }
+  .flex button:active{
+    border-bottom: green;
+    color: green;
+  }
+  .About{
+    height: 300px;
+    width: 100%;
+    background-color: whitesmoke;
+    border: 2px solid white;
+    border-radius: 10px;
+    /* background-color; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .Events{
+    height: auto;
+    width: 100%;
+    background-color:whitesmoke;
+    border: 2px solid white;
+}
+.Posts{
+    height: auto;
+    width: 100%;
+    background-color: whitesmoke;
+    border: 2px solid white;
+    /* background-color:aquamarine; */
+  }
+  .Life{
+    height: 300px;
+    width: 100%;
+    background-color:aquamarine;
+  }
+  /* styles.css */
+.slider-container {
+    overflow: hidden;
+    position: relative;
+  }
   
+  .slider-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+  .slick-slide{
+    margin-right: 10px !important;
+    height: 336px;
+    /* width: 400px !important; */
+  }
+  .slide {
+    height: 350px;
+    /* width: 400px; */
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+  .slide1 {
+    height: 358px;
+    width: 276px;
+    margin-right: 24px;
+  }
+  .slide2 {
+    height: 208px;
+    width: 276px;
+    margin-right: 24px;
+  }
+  .logodiv{
+    height: 80px;
+    display: flex;
+    /* justify-content: center; */
+    padding-left: 10px;
+    align-items: center;
+    width: 100%;
+    /* background-color: aqua; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .imageselect{
+    height: 150px;
+  }
+  .popupC{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  .contain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

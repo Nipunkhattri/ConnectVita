@@ -47,9 +47,7 @@ const Navbar = () => {
     console.log(id);
     navigate(`/profile/${id}`)
     setMatchingNames([])
-    setSearchTerm('')
-    window.location.reload();
-    // setActiveLink(link);
+    setSearchTerm('');
   };
 
   const linkStyle = (link) => ({
@@ -109,11 +107,15 @@ const Navbar = () => {
     setMatchingNames(filteredNames);
   };
 
+  const handleclicksearch = () =>{
+    setMatchingNames([]);
+  }
+
   return (
     <>
     {
     login==true?
-    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10 font-serif'>
+    <div style={inputStyle} className='h-14 w-full fixed border-b-2 flex z-10 font-serif ' onClick={handleclicksearch}>
       <div className='h-full w-5/12 flex items-center ml-10'>
         <img className='h-11 w-11 mr-5' src={link} alt="" />
         {/* <div className='flex'> */}
@@ -142,8 +144,8 @@ const Navbar = () => {
         <FaSuitcase className='text1 ml-1'/>
         <h1 className='text'>Events</h1>
         </Link>
-        <Link style={linkStyle('link4')}
-        onClick={() => handleLinkClick('link4')} className='flex-col mt-2 flex items-center'>
+        <Link  style={linkStyle('link4')}
+        className='flex-col mt-2 flex items-center'>
         <AiOutlineMessage className='text1 ml-1'/>
         <h1 className='text'>Message</h1>
         </Link>

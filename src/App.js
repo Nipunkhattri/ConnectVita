@@ -4,6 +4,7 @@ import {Route , Routes} from 'react-router-dom'
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
+import ProfileCompany from './components/ProfileCompany';
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
@@ -23,10 +24,12 @@ import PersonPost from './components/PersonPost';
 import Event from './components/Event';
 import Comment from './components/Comment';
 import CompStud from './components/CompStud';
+import Message from './components/Message';
 
 function App() {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
-
+  const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
+  console.log(user?.select);
   return (
     <>
     <Navbar/>
@@ -34,7 +37,11 @@ function App() {
     <>
     <Routes>
       <Route exact path='/' element={<Home/>}/>
+      {/* {
+        user?.select == 'student'? */}
       <Route exact path='/profile/:id' element={<Profile/>}/>
+      <Route exact path='/profilecomany/:id' element={<ProfileCompany/>}/>
+      {/* }  */}
       <Route exact path='/profile/form1' element={<Form1/>}/>
       <Route exact path='/profile/form2' element={<Form2/>}/>
       <Route exact path='/profile/form3' element={<Form3/>}/>
@@ -50,6 +57,7 @@ function App() {
       <Route exact path='/event' element={<Event/>}/>
       <Route exact path='/comment/:id' element={<Comment/>}/>
       <Route exact path='/select' element={<CompStud/>}/>
+      <Route exact path='/message' element={<Message/>}/>
     </Routes>
     </>
     </>

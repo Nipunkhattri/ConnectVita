@@ -286,10 +286,6 @@ export const saveselect = createAsyncThunk(
     try {
       const res = await api.selectOption(userType);
       console.log(res);
-      toast(<CustomToast message={res.data.message} />, {
-        position: "top-center",
-      });
-      navigate('/');
       return res;
     } catch (error) {
       console.log(error);
