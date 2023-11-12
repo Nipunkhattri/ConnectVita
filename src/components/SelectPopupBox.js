@@ -14,7 +14,7 @@ const SelectPopupBox = ({onClose2}) => {
     const handleUserTypeChange = (event) => {
         setUserType({...userType,option:event.target.value});
     };
-    console.log(userType);
+    // console.log(userType);
     const handleSubmit = () =>{
         dispatch(saveselect({userType,navigate}))
         .then(()=>{

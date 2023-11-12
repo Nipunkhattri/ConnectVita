@@ -27,7 +27,7 @@ const Imagepopupbox = ({ onClose }) => {
     const newText = e.target.value;
     setText(newText); // Update the text state when textarea content changes
   };
-  console.log(data);
+  // console.log(data);
 
   const CustomToast = ({ message }) => (
     <div style={{ backgroundColor: "#333", color: "#fff", padding: "10px" }}>

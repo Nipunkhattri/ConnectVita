@@ -20,11 +20,11 @@ export const uploadImage = (data1,navigate) => async dispatch => {
     const formData = new FormData();
     formData.append('image', data1.imageFile);
     formData.append('id', data1._id);
-    console.log(formData);
-    console.log("*************************");
+    // console.log(formData);
+    // console.log("*************************");
     const response = await axios.post('https://linkedin-backend-be7n.onrender.com/upload', formData);
-    console.log('Image uploaded:', response.data.secure_url);
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    // console.log('Image uploaded:', response.data.secure_url);
+    // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     // const data = response.data.secure_url;
     // console.log(data);
     window.location.reload();

@@ -25,11 +25,14 @@ import Event from './components/Event';
 import Comment from './components/Comment';
 import CompStud from './components/CompStud';
 import Message from './components/Message';
+import Network from './components/Network';
+import ProfileOthers from './components/ProfileOthers';
+import MessageBox from './components/MessageBox';
 
 function App() {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
-  console.log(user?.select);
+  // console.log(user?.select);
   return (
     <>
     <Navbar/>
@@ -40,6 +43,7 @@ function App() {
       {/* {
         user?.select == 'student'? */}
       <Route exact path='/profile/:id' element={<Profile/>}/>
+      <Route exact path='/profile/:id' element={<ProfileOthers/>}/>
       <Route exact path='/profilecomany/:id' element={<ProfileCompany/>}/>
       {/* }  */}
       <Route exact path='/profile/form1' element={<Form1/>}/>
@@ -58,6 +62,8 @@ function App() {
       <Route exact path='/comment/:id' element={<Comment/>}/>
       <Route exact path='/select' element={<CompStud/>}/>
       <Route exact path='/message' element={<Message/>}/>
+      <Route exact path='/messagebox' element={<MessageBox/>}/>
+      <Route exact path='/network' element={<Network/>}/>
     </Routes>
     </>
     </>

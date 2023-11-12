@@ -17,11 +17,11 @@ const ProEdit = () => {
       setid(id);
       setPopupOpen(true);
     }
-    console.log(_id);
+    // console.log(_id);
     useEffect(()=>{
       dispatch(getProeditId({_id,navigate}))
       .then((response) => {
-        console.log(response.payload);
+        // console.log(response.payload);
       //   setEditedData(response.payload[0]);
         setpdata(response.payload[0])
     })  
@@ -42,7 +42,7 @@ const ProEdit = () => {
       setpdata({...pdata,[e.target.name]:e.target.value})
     }
   
-    console.log(pdata);
+    // console.log(pdata);
   
     const savedata = (e)=>{
       e.preventDefault();
@@ -98,11 +98,11 @@ const ProEdit = () => {
         {/* <h2 className='pl-4 pt-2 text-xl font-medium'>Add New Project</h2> */}
         <div className='p-4'>
           {/* <label htmlFor=""> Project Name</label> */}
-          <input type="text" placeholder='Project Name' name='ProjectName' value={pdata.ProjectName} onChange={handlechange} className='h-10 w-96 pl-3 border-2 border-slate-300 rounded-md'/>
+          <input type="text" placeholder='Project Name' name='ProjectName' value={pdata.ProjectName} onChange={handlechange} className='h-10 pnamer w-96 pl-3 border-2 border-slate-300 rounded-md'/>
         </div>
-        <textarea className='border-2  border-slate-300 rounded-md ml-4 pl-2' name='AboutP' value={pdata.AboutP} onChange={handlechange} placeholder='Write about Your Project' cols="70" rows="5"></textarea>
+        <textarea className='border-2 textareares  border-slate-300 rounded-md ml-4 pl-2' name='AboutP' value={pdata.AboutP} onChange={handlechange} placeholder='Write about Your Project' cols="70" rows="5"></textarea>
         <div className="mb-4 ml-5">
-            <div className='w-96 '>
+            <div className='w-96 st'>
             <label className="block mt-4 text-lg font-medium text-gray-600">
               Start Date
             </label>
@@ -114,7 +114,7 @@ const ProEdit = () => {
               className="w-full p-2 border rounded-md mt-1"
               />
             </div>
-            <div className='w-96'>
+            <div className='w-96 ed'>
             <label className="block mt-4 text-lg font-medium text-gray-600">
               End Date
             </label>
@@ -127,8 +127,8 @@ const ProEdit = () => {
               />
               </div>
             </div>
-        <input type="text" placeholder='Project Link' className='h-10 w-96 pl-3 ml-4 mt-3 border-2 border-slate-300 rounded-md' name='ProjectLink' value={pdata.ProjectLink} onChange={handlechange}/>
-        <div className="text-right w-full">
+        <input type="text" placeholder='Project Link' className='h-10 w-96 ires pl-3 ml-4 mt-3 border-2 border-slate-300 rounded-md' name='ProjectLink' value={pdata.ProjectLink} onChange={handlechange}/>
+        <div className="text-right btnres w-full">
           <button className="h-10 bg-blue-600 text-white w-32 mr-4 rounded-md text-xl" onClick={savedata}>Save</button>
         </div>
       </div>

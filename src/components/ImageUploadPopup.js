@@ -25,12 +25,12 @@ const ImageUploadPopup = ({ isOpen, onClose, onImageUpload }) => {
       {message}
     </div>
   );
-  console.log(imageFile);
+  // console.log(imageFile);
   const data1 = {
     imageFile : imageFile?imageFile:"",
     _id : user?._id
   }
-  console.log(data1);
+  // console.log(data1);
   const upload = () =>{
     if (imageFile != '') {
       setloading(true);

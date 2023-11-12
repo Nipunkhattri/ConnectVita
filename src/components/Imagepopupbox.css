@@ -77,4 +77,12 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+  @media (max-width: 640px) {
+    .popup-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+    }
+  }

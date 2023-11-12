@@ -22,7 +22,7 @@ const Form2 = () => {
     // e.preventDefault();
     setadata({...adata,[e.target.name]:e.target.value});
   }  
-  console.log(adata);
+  // console.log(adata);
 
   const savedata = (e) =>{
     e.preventDefault();

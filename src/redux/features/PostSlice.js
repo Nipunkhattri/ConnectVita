@@ -18,16 +18,16 @@ export const savedata = createAsyncThunk(
     'post/save',
     async ({formData,dispatch}, { rejectWithValue }) =>{
         try {
-            console.log(formData);
+            // console.log(formData);
             const res = await api.savepost(formData);
             toast(<CustomToast message="Post added succesfully" />, {
                 position: "top-center",
               });  
-            console.log(res);
+            // console.log(res);
             // const data1 = res.data;
             return res.data;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast(<CustomToastError message={error.response?error.response.data.message:error.message} />, {
                 position: "top-center",
               });
@@ -41,7 +41,7 @@ export const addlike = createAsyncThunk(
     async (likedata) =>{
         try {
             const res = await api.addlikeId(likedata);
-            console.log(res);
+            // console.log(res);
             // toast.success("Liked the Post !!");
             return res.data;
         } catch (error) {
@@ -54,9 +54,9 @@ export const savecomment = createAsyncThunk(
     'post/comment',
     async (cdata) =>{
         try {
-            console.log(cdata);
+            // console.log(cdata);
             const res = await api.commentpost(cdata);
-            console.log(res);
+            // console.log(res);
             toast.success('Commented Successfully');
             return res.data;
         } catch (error) {
@@ -70,7 +70,7 @@ export const fetchpost = createAsyncThunk(
     async ()=>{
         try {
             const res = await api.fetchpostdata();
-            console.log(res);
+            // console.log(res);
             return res.data;
         } catch (error) {
             console.log(error);

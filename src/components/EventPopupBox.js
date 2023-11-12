@@ -49,7 +49,7 @@ const EventPopupBox = ({onClose1}) => {
     //   console.log(eventData);
 
       const handleSave = () => {
-        console.log(eventData);
+        // console.log(eventData);
         const formdata = new FormData();
         formdata.append('image',eventData?.coverImage);
         formdata.append('eventtype',eventData?.eventType);
@@ -90,7 +90,7 @@ const EventPopupBox = ({onClose1}) => {
       <button className="popup-close-button absolute top-3 right-3 text-gray-500" onClick={onClose1}>
         Close
       </button>
-      <h2 className="text-xl font-semibold mb-4">Create Event</h2>
+      <h2 className="text-xl font-semibold mb-4 textevent">Create Event</h2>
       <form className="popup-form">
         <div className="mb-4">
         <div className="imageadd">
@@ -230,7 +230,7 @@ const EventPopupBox = ({onClose1}) => {
           <label className="block mt-4 text-lg font-medium text-gray-600">
               Description
             </label>
-            <textarea name="description" value={eventData.description} onChange={handleInputChange} className='border-2 border-slate-200 p-4 text-xl rounded-md' id="" cols="43" rows="6"></textarea>
+            <textarea name="description" value={eventData.description} onChange={handleInputChange} className='description border-2 border-slate-200 p-4 text-xl rounded-md' id="" cols="43" rows="6"></textarea>
           </div> 
           <div className='mb-4'>
           <label className="block mt-4 text-lg font-medium text-gray-600">

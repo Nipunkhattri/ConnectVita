@@ -53,3 +53,17 @@
 .event-but:hover{
   background-color: rgb(160, 183, 224);
 }
+
+@media (max-width: 640px) {
+  .event-container{
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  .gridres{
+    grid-template-columns: auto;
+  }
+  .allebenttext{
+    margin-left: 20px;
+  }
+}

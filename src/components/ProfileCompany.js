@@ -30,13 +30,14 @@ const ProfileCompany = () => {
   const name = user?.FirstName + ' ' + user?.lastname;
   const { Event } = useSelector((state)=>({...state?.Event}))
   const { post } = useSelector((state)=>({...state?.Post}))
-  console.log(Event);
-  console.log(post);
-  const { result } = useSelector((state) => ({ ...state?.auth?.profile?.data }));
+  // console.log(Event);
+  // console.log(post);
+  // const { result } = useSelector((state) => ({ ...state?.auth?.profile?.data }));
+  const [result,setresult] = useState(null)
   const Events = Event?.filter((item) => item?.PersonPosted === name);
   const posts = post?.filter((item) => item?.id === result?._id);
-  console.log(Events)
-  console.log(posts)
+  // console.log(Events)
+  // console.log(posts)
   // const events = [
   //   {
   //     date: "Thu, Mar 16, 2023, 8:30 PM",
@@ -78,8 +79,11 @@ const ProfileCompany = () => {
   const { id } = useParams();
   const _id = id;
   useEffect(() => {
-    console.log(_id);
-    dispatch(getdata(_id)); 
+    // console.log(_id);
+    dispatch(getdata(_id)).then((res)=>{
+      // console.log(res);
+      setresult(res?.payload?.data?.result)
+    }); 
     dispatch(fetchexp(_id));
     dispatch(fetctPro(_id));
   }, [_id]);
@@ -122,7 +126,7 @@ const ProfileCompany = () => {
   const handlechange01 = (e) =>{
     setadata({...adata,[e.target.name]:e.target.value});
   }  
-  console.log(adata);
+  // console.log(adata);
 
   const sendaboutdata = async (adata) => {
     while (adata.id === '' || adata.id === undefined) {
@@ -151,7 +155,7 @@ const ProfileCompany = () => {
         id: result?._id || ''
       });
     }
-    console.log(adata);
+    // console.log(adata);
     // await console.log("Hii");
 
     await sendaboutdata(adata);
@@ -167,7 +171,7 @@ const ProfileCompany = () => {
     }
   },[result])
 
-  console.log(form1);
+  // console.log(form1);
 
   const handlechange = (e) =>{
     setform1({ ...form1, [e.target.name]: e.target.value });
@@ -196,7 +200,7 @@ const ProfileCompany = () => {
   };
 
   const handlesubmit = async () =>{
-    console.log("HII");
+    // console.log("HII");
     if(form1.firstname == '' || form1.headline == '' ){
       toast(<CustomToast message="Please fill the details" />, {
         position: "top-center",
@@ -243,7 +247,7 @@ const ProfileCompany = () => {
     setPopupOpen1(true);
   };
   return (
-    <div className="w-7/12 h-auto ml-40 company-profile flex flex-col pt-16 font-serif ">
+    <div className="w-7/12 compp h-auto ml-40 company-profile flex flex-col pt-16 font-serif ">
     { my?(
       <>
       <div className="home border-2 border-white bg-white">
@@ -522,7 +526,7 @@ const ProfileCompany = () => {
         <button className="close-button" onClick={() => setPopupOpen1(false)}>
           Close
         </button>
-        <div className=" bg-white border-2 rounded-md border-slate-300">
+        <div className="popup11 bg-white border-2 rounded-md border-slate-300">
     <div className="w-full h-20 bg-slate-200 flex justify-between p-4 items-center">
         <h2 className="text-xl">Edit About</h2>
         {/* <ImCross onClick={handlereturn} className='cursor-pointer'/> */}
@@ -632,7 +636,7 @@ name="textarea" value={adata.textarea} onChange={handlechange01}></textarea>
                   /> */}
         </div>
         <p className="ml-8 mt-1 text-lg">
-         {result?.About}
+         {result?.About.slice(0,410)}
         </p>
           </>
         )

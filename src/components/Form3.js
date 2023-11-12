@@ -43,7 +43,7 @@ const Form3 = () => {
     }));
   };
 
-  console.log(Edata);
+  // console.log(Edata);
 
   const savedata = (e) =>{
     e.preventDefault();

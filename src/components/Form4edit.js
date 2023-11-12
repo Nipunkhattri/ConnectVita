@@ -21,7 +21,7 @@ const Form4edit = ({Route}) => {
   useEffect(()=>{
     dispatch(getProeditId({_id,navigate}))
     .then((response) => {
-      console.log(response.payload);
+      // console.log(response.payload);
     //   setEditedData(response.payload[0]);
       setpdata(response.payload[0])
   })  
@@ -42,7 +42,7 @@ const Form4edit = ({Route}) => {
     setpdata({...pdata,[e.target.name]:e.target.value})
   }
 
-  console.log(pdata);
+  // console.log(pdata);
 
   const savedata = (e)=>{
     e.preventDefault();

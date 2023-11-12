@@ -17,12 +17,12 @@ const Form3edit = ({Route}) => {
     navigate(`/profile/${idd}`)
   }
   const _id = location.state.id;
-  console.log(_id);
+  // console.log(_id);
 
   useEffect(()=>{
     dispatch(getExpeditId({_id,navigate}))
     .then((response) => {
-      console.log(response.payload);
+      // console.log(response.payload);
       setEditedData(response.payload[0]);
       setEdata(response.payload[0])
   })  
@@ -31,7 +31,7 @@ const Form3edit = ({Route}) => {
   });
   },[])
 
-  console.log(data);
+  // console.log(data);
 
 
   const [Edata,setEdata] = useState({
@@ -65,7 +65,7 @@ const Form3edit = ({Route}) => {
     }));
   };
 
-  console.log(Edata);
+  // console.log(Edata);
 
   const savedata = (e) =>{
     e.preventDefault();
@@ -107,8 +107,8 @@ const Form3edit = ({Route}) => {
             <input className="h-16 border-2 border-gray-400 rounded-md pl-6" name="Company" value={Edata.Company} onChange={handlechange} type="text" placeholder="Ex: Microsoft" />
           </div>
           <div className="mb-4 ml-5">
-            <div className='w-96 '>
-            <label className="block mt-4 text-lg font-medium text-gray-600">
+            <div className='w-96 st'>
+            <label className="block st mt-4 text-lg font-medium text-gray-600">
               Start Date
             </label>
             <input
@@ -116,11 +116,11 @@ const Form3edit = ({Route}) => {
               name="startdate"
               value={Edata.startdate}
               onChange={handlechange}
-              className="w-full p-2 border rounded-md mt-1"
+              className="w-full st p-2 border rounded-md mt-1"
               />
             </div>
-            <div className='w-96'>
-            <label className="block mt-4 text-lg font-medium text-gray-600">
+            <div className='w-96 ed'>
+            <label className="block ed mt-4 text-lg font-medium text-gray-600">
               End Date
             </label>
             <input
@@ -128,7 +128,7 @@ const Form3edit = ({Route}) => {
               name="enddate"
               value={Edata.enddate}
               onChange={handlechange}
-              className="w-full p-2 border rounded-md mt-1"
+              className="w-full ed p-2 border rounded-md mt-1"
               />
               </div>
             </div>
@@ -146,7 +146,7 @@ const Form3edit = ({Route}) => {
             </select>
           </div>
         </form>
-        <button className="h-10 w-36 m-1 rounded-md bg-blue-400 float-right" onClick={savedata}>Save</button>
+        <button className="h-10 w-36 m-1 rounded-md bg-blue-400 float-right btnres" onClick={savedata}>Save</button>
         {/* </div> */}
       </div>
     </div>

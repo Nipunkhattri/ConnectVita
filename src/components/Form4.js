@@ -25,7 +25,7 @@ const Form4 = () => {
     setpdata({...pdata,[e.target.name]:e.target.value})
   }
 
-  console.log(pdata);
+  // console.log(pdata);
 
   const save = (e)=>{
     e.preventDefault();

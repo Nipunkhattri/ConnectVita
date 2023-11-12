@@ -22,7 +22,7 @@ export const saveEvent = createAsyncThunk(
             toast(<CustomToast message="Event added succesfully" />, {
                 position: "top-center",
             });  
-            console.log(res);
+            // console.log(res);
             // const data1 = res.data;
             // window.location.reload();
             return res.data;
@@ -41,7 +41,7 @@ export const getEvents = createAsyncThunk(
     async () =>{
         try {
             const res = await api.fetcheventdata();
-            console.log(res);
+            // console.log(res);
             return res.data;
         } catch (error) {
             console.log(error);

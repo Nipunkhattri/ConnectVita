@@ -8,7 +8,7 @@ const Form1 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
-  console.log(user)
+  // console.log(user)
   const idd = user?._id;
   const handlereturn = () =>{
     navigate(`/profile/${idd}`)
@@ -28,7 +28,7 @@ const Form1 = () => {
     setform1({ ...form1, [e.target.name]: e.target.value });
   }
 
-  console.log(form1);
+  // console.log(form1);
 
   useEffect(()=>{
     const id = form1?.id;

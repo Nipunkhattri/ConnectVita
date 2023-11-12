@@ -48,19 +48,20 @@ const Home = () => {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
   const { user } = useSelector((state) => ({...state?.auth?.data?.data}));
   const { post } = useSelector((state)=>({...state?.Post}))
-  console.log(post);
-  console.log(user);
+  // console.log(post);
+  // console.log(user);
   const _id = user?._id;
-  console.log(user?.select);
+  // console.log(user?.select);
   useEffect(()=>{
-    console.log(_id);
+    // console.log(_id);
     // console.log("######################################################")
-    dispatch(getuserdata(_id));
-  },[])
+    if(_id != undefined){
+      dispatch(getuserdata(_id));
+    }
+  },[_id])
   useEffect(()=>{
-    // dispatch(getuserdata(_id));
     if(user?.select == undefined || user?.select == ''){
-      console.log("******************************************")
+      // console.log("******************************************")
       setpopup(true);
     }
     else{
@@ -72,7 +73,7 @@ const Home = () => {
     dispatch(fetchpost());
   },[])
 
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
   useEffect(()=>{
     if(isAuthenticated == false){
       navigate('/login');
@@ -81,7 +82,7 @@ const Home = () => {
 
   const handlenavigate =(id) =>{
     navigate(`/profile/${id}`)
-    window.location.reload();
+    // window.location.reload();
   }
 
   const [data,setdata] = useState({
@@ -177,12 +178,12 @@ const Home = () => {
     setcdata({...cdata,[e.target.name]:e.target.value})
   } 
 
-  console.log(cdata);
+  // console.log(cdata);
 
   const handlesavecomment = async (id) =>{
     const updatedCdata = await { ...cdata, postid: id };
     setcdata(updatedCdata);
-    console.log(cdata);
+    // console.log(cdata);
     dispatch(savecomment(cdata)).then(()=>{
       window.location.reload();
     }).catch((error)=>{
@@ -190,12 +191,16 @@ const Home = () => {
     })
   }
 
+  const navigateProfile = (id) =>{
+    navigate(`/profile/${id}`)
+  }
+
 
 
   return (
     <>
     <div className=' w-full flex bg-Homecolor pt-16 font-serif'>
-      <div className='wwd h-full flex mt-5 mr-5 items-end flex-col'>
+      <div className='wwd h-full flex mt-5 mr-5 items-end flex-col hresleft'>
         <div className='h-2/3 leftup w-7/12 bg-white rounded-2xl'>
           <div className='h-16 w-full rounded-t-lg bg-black'>
             <Link to={`/profile/${user?._id}`}>
@@ -234,7 +239,7 @@ const Home = () => {
             </div>
         </div>
       </div>
-      <div className=' divv'>
+      <div className='divv'>
         <div className='wd h-36 m-5 bg-white'>
             <div className='w-full hsdd flex items-center h-3/6 '>
             <Link to={`/profile/${user?._id}`}>
@@ -244,19 +249,19 @@ const Home = () => {
             </div>
             <div className='w-full h-16 flex  items-center'>
               <div className='h-5/6 flex items-center pl-5 ww1 '  onClick={openPopup}>
-                <BsCardImage className='text-xl'/>
+                <BsCardImage className='text-xl image1'/>
                 <h3 className='pl-3 text-s'>Photo</h3>
               </div>
               <div className='h-5/6 flex items-center pl-5 ww1 '  onClick={openPopup}>
-                <BiSolidVideos className='text-xl'/>
+                <BiSolidVideos className='text-xl image1'/>
                 <h3 className='pl-3 text-s'>Video</h3>
               </div>
               <div className='h-5/6 flex items-center pl-5 ww1 'onClick={openPopup1}>
-                <BsCalendarEvent className='text-xl'/>
+                <BsCalendarEvent className='text-xl image1'/>
                 <h3 className='pl-3 text-s'>Event</h3>
               </div>
               <div className='h-5/6 flex items-center pl-5 ww1 '>
-                <GrArticle className='text-xl'/>
+                <GrArticle className='text-xl image1'/>
                 <h3 className='pl-3 text-s'>Article</h3>
               </div>
             </div>
@@ -275,11 +280,11 @@ const Home = () => {
               return(
                 <>
                 <div className='width block m-auto mt-4 h-full '>
-                <div className='h-20 w-full flex justify-between items-center' key={index}>
-            <div className='w-60 h-full flex'>
-              <Link to={`/profile/${item.id}`}>
-              <img src={item?.image} className='h-full w-20 p-1 cursor-pointer' alt="" />
-              </Link>
+              <div className='h-20 w-full flex justify-between items-center' key={index}>
+              <div className='w-60 h-full flex'>
+              <div>
+              <img src={item?.image} onClick={()=>navigateProfile(item?.id)} className='h-full w-20 p-1 cursor-pointer' alt="" />
+              </div>
               <div className='h-full w-40 flex ml-1 flex-col mt-1'>
                 <Link to={`/profile/${item.id}`}>
                 <h1 className='text-lg cursor-pointer' >{item?.name}</h1>
@@ -301,7 +306,7 @@ const Home = () => {
           </div>
           <div className='hi w-full'>
               <div className='h-16 p-1 text-s'>
-                {item?.text}
+                {item?.text.slice(0, 83)}
               </div>
               <div className='divimg'>
                 {
@@ -321,8 +326,8 @@ const Home = () => {
               {
                 item?.Like.includes(user?._id)?
                 <div className='h-5/6 w-1/5 flex divl text-xl justify-center items-center' onClick={()=>handleDislike(item?._id)}>
-                <AiOutlineLike className='text-2xl mr-1 text-red-500'/>
-                <h2 className='textsize1'>Like</h2>
+                <AiOutlineLike className='text-2xl image3 mr-1 text-red-500'/>
+                <h2 className='textsize1 '>Like</h2>
               </div>
               :
                 <div className='h-5/6 w-1/5 flex divl text-xl justify-center items-center' onClick={()=>handleLike(item?._id)}>
@@ -331,15 +336,15 @@ const Home = () => {
               </div>
               }
               <div className='h-5/6 w-3/12 flex divl text-xl justify-center items-center' onClick={() => toggleComment(item?._id)}>
-                <FaRegCommentDots className='text-2xl mr-1'/>
+                <FaRegCommentDots className='text-2xl image3 mr-1'/>
                 <h2 className='textsize1'>Comment</h2>
               </div>
               <div className='h-5/6 w-1/5 flex divl text-xl justify-center items-center'>
-                <AiOutlineLike className='text-2xl mr-1'/>
+                <AiOutlineLike className='text-2xl image3 mr-1'/>
                 <h2 className='textsize1'>Repost</h2>
               </div>
               <div className='h-5/6 w-1/5 flex divl text-xl justify-center items-center'>
-                <GrSend className='text-2xl mr-1'/>
+                <GrSend className='text-2xl image4 mr-1'/>
                 <h2 className='textsize1'>Send</h2>
               </div>
               </div>
@@ -347,9 +352,9 @@ const Home = () => {
                 {openCommentId === item?._id && (
             <div className='comment-box'>
               {/* Comment input field, comment display, or any other components */}
-              <h2 className='text-xl p-2 ml-2 font-medium font-serif underline'>Comments</h2>
+              <h2 className='text-xl p-2 ml-2 font-medium font-serif underline comrestext'>Comments</h2>
               <div className='flex items-center justify-between'>
-              <input type="text" className='h-12 w-10/12 ml-2 rounded-md pl-4 border-2 border-slate-500' name='comment' value={cdata?.comment} onChange={handlecomment} />
+              <input type="text" className='inputcomment h-12 w-10/12 ml-2 rounded-md pl-4 border-2 border-slate-500' name='comment' value={cdata?.comment} onChange={handlecomment} />
               <button className='h-10 btnnn border-2 border-black rounded-md mr-1 hover:bg-slate-300 text-xl font-serif' onClick={()=>handlesavecomment(item?._id)}>Post</button>
               </div>
               <hr  className='h-1 mt-2 w-full bg-slate-200'/>
@@ -375,7 +380,7 @@ const Home = () => {
         }
         </div>
       </div>
-      <div className='w-2/5 h-full flex mt-5 ml-5  items-start flex-col'>
+      <div className='w-2/5 h-full flex mt-5 ml-5  items-start flex-col hresright'>
         <div className='h-2/3 leftup1 w-7/12 bg-white rounded-2xl'>
             <h1 className='mt-5 ml-5 text-xl mb-4'>Pending Requests</h1>
             {

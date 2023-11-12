@@ -19,7 +19,7 @@ export const setform1p = createAsyncThunk(
   async ({form1,navigate}, { rejectWithValue }) =>{
     try {
       const res = await api.form1data(form1);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message="Details added succesfully" />, {
         position: "top-center",
       });      // navigate('/profile');
@@ -40,7 +40,7 @@ export const setExperience = createAsyncThunk(
   async ({Edata,navigate}, { rejectWithValue })=>{
     try {
       const res = await api.setexp(Edata);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message="Experience added succesfully" />, {
         position: "top-center",
       });       // navigate('/profile');
@@ -59,7 +59,7 @@ export const updateExp = createAsyncThunk(
   'auth/update',
   async ({Edata,navigate}) =>{
     try {
-      console.log(Edata);
+      // console.log(Edata);
       const res = await api.updateExpdata(Edata);
       toast(<CustomToast message="Exp Updated succesfully" />, {
         position: "top-center",
@@ -88,9 +88,9 @@ export const setaboutdata = createAsyncThunk(
   'auth/about',
   async ({adata,navigate}, { rejectWithValue })=>{
     try {
-      console.log(adata);
+      // console.log(adata);
       const res = await api.setabout(adata);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message="About Added"/>, {
         position: "top-center",
       });
@@ -112,7 +112,7 @@ export const getdata = createAsyncThunk(
     try {
       console.log(_id);
       const res = await api.getdata(_id);
-      console.log(res);
+      // console.log(res);
       // window.location.reload();
       return res;
     } catch (error) {
@@ -126,7 +126,7 @@ export const getuserdata = createAsyncThunk(
   async (_id) =>{
     try {
       const res = await api.getuser(_id);
-      console.log(res);
+      // console.log(res);
       return res;
     } catch (error) {
       console.log(error);
@@ -139,7 +139,7 @@ export const fetchexp = createAsyncThunk(
   async (_id) =>{
     try {
       const res = await api.getexp(_id);
-      console.log(res);
+      // console.log(res);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -152,7 +152,7 @@ export const getExpeditId = createAsyncThunk(
 async ({_id,navigate}) =>{
   try {
     const res = await api.EditexpById(_id);
-    console.log(res);
+    // console.log(res);
     // navigate('/profile');
     return res.data
   } catch (error) {
@@ -166,7 +166,7 @@ export const getProeditId = createAsyncThunk(
 async ({_id,navigate}) =>{
   try {
     const res = await api.EditProById(_id);
-    console.log(res);
+    // console.log(res);
     // navigate('/profile');
     return res.data
   } catch (error) {
@@ -179,7 +179,7 @@ export const fetctPro = createAsyncThunk(
   async (_id) =>{
     try {
       const res = await api.getPro(_id);
-      console.log(res);
+      // console.log(res);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -192,7 +192,7 @@ export const addfollower = createAsyncThunk(
   async (data6) =>{
     try {
       const res = await api.addfollow(data6);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message="Connection request Send"/>, {
         position: "top-center",
       });      // window.location.reload();
@@ -211,7 +211,7 @@ export const sendrequest = createAsyncThunk(
   async (data) =>{
     try {
       const res = await api.sendreq(data);
-      console.log(res);
+      // console.log(res);
       window.location.reload();
       return res.data;
     } catch (error) {
@@ -225,7 +225,7 @@ export const setproject = createAsyncThunk(
   async({pdata,navigate}, { rejectWithValue }) => {
     try {
       const res = await api.setpdata(pdata)
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message="Project added succesfully" />, {
         position: "top-center",
       });      
@@ -246,7 +246,7 @@ export const authlogin = createAsyncThunk(
   async ({ldata,navigate}, { rejectWithValue }) =>{
     try {
       const res = await api.AdminLogin(ldata);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message={res.data.message} />, {
         position: "top-center",
       });
@@ -267,7 +267,7 @@ export const googleauth = createAsyncThunk(
   async ({gdata,navigate}, {rejectWithValue})=>{
     try {
         const res = await api.GoogleLogin(gdata);
-        console.log(res);
+        // console.log(res);
         navigate('/');
         return res;
       } catch (error) {
@@ -285,7 +285,7 @@ export const saveselect = createAsyncThunk(
   async ({userType,navigate},{rejectWithValue})=>{
     try {
       const res = await api.selectOption(userType);
-      console.log(res);
+      // console.log(res);
       return res;
     } catch (error) {
       console.log(error);
@@ -302,7 +302,7 @@ export const getname = createAsyncThunk(
   async () =>{
     try {
       const res = await api.getnamearray();
-      console.log(res);
+      // console.log(res);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -314,9 +314,9 @@ export const deleteExp = createAsyncThunk(
   'delete/Exp',
   async ({id,navigate}) =>{
     try {
-      console.log(id);
+      // console.log(id);
       const res = await api.expdelete(id);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message={'Deleted Successfully'} />, {
         position: "top-center",
       });
@@ -335,9 +335,9 @@ export const deletePro = createAsyncThunk(
   'delete/Pro',
   async ({id,navigate}) =>{
     try {
-      console.log(id);
+      // console.log(id);
       const res = await api.Prodelete(id);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message={'Deleted Successfully'} />, {
         position: "top-center",
       });
@@ -355,9 +355,9 @@ export const deletePost = createAsyncThunk(
   'delete/Post',
   async ({id,navigate}) =>{
     try {
-      console.log(id);
+      // console.log(id);
       const res = await api.Postdelete(id);
-      console.log(res);
+      // console.log(res);
       toast(<CustomToast message={'Deleted Successfully'} />, {
         position: "top-center",
       });
@@ -375,9 +375,9 @@ export const register = createAsyncThunk(
   'auth/register',
   async ({rdata,navigate})=>{
     try {
-      console.log(rdata);
+      // console.log(rdata);
       const response = await api.signUp(rdata);
-      console.log(response);
+      // console.log(response);
       toast(<CustomToast message={response.data.message} />, {
         position: "top-center",
       });

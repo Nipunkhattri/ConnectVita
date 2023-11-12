@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL :"https://linkedin-backend-be7n.onrender.com"
+    // baseURL :"https://linkedin-backend-be7n.onrender.com"
+    baseURL :"https://brave-pink-necklace.cyclic.app"
     // baseURL :"http://localhost:5000/"
 })
 
@@ -33,3 +34,6 @@ export const getnamearray = () => Api.get('/api/getdataname');
 export const expdelete = (id)=>Api.delete(`/api/deleteExp/${id}`)
 export const Prodelete = (id)=>Api.delete(`/api/deletePro/${id}`)
 export const Postdelete = (id)=>Api.delete(`/api/deletePost/${id}`)
+export const postmessage = (data) =>Api.post('/api/postmessage',data);
+export const getmessage = (data) =>Api.post('/api/getmessage',data);
+export const getsmessage = (data) =>Api.post('/api/getsmessage',data);

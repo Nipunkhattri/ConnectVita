@@ -31,7 +31,7 @@ const EditExp = () => {
     return(
       <>
       <div className='mb-5 w-full flex pl-9 pt-4'>
-        <img src={logo} className='h-20 w-20 mr-4' alt="" />
+        <img src={item?.image?item?.image:logo} className='h-20 w-20 mr-4' alt="" />
         <div>
           <h1 className='text-lg font-medium'>{item.title}</h1>
           <h3>{item.Company} · {item.type}</h3>

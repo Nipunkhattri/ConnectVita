@@ -44,7 +44,7 @@ const PersonPost = () => {
       const handlesavecomment = async (id) =>{
         const updatedCdata = await { ...cdata, postid: id };
         setcdata(updatedCdata);
-        console.log(cdata);
+        // console.log(cdata);
         dispatch(savecomment(cdata)).then(()=>{
           window.location.reload();
         }).catch((error)=>{

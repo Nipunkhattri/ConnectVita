@@ -19,7 +19,7 @@ const Event = () => {
         setPopupVisible1(false);
       };
       const name = user?.FirstName + ' ' + user?.lastname;
-      console.log(name);
+    //   console.log(name);
       const filteredEvents = Event?.filter((item) => item?.PersonPosted === name);
   return (
     <div className=' w-full bg-Homecolor pt-16 font-serif'>
@@ -32,7 +32,7 @@ const Event = () => {
         <div className='flex justify-center items-center'>
     <div className='w-11/12 mt-3 bg-white  items-center rounded-md justify-center'>
         <h1 className='text-xl mt-3  ml-1 underline mb-3 font-medium'>Your Events</h1>
-        <div className='mt-4 w-11/12 mb-2 ml-2 grid grid-cols-3 gap-4'>
+        <div className='mt-4 w-11/12 mb-2 ml-2 grid grid-cols-3 gap-4 gridres'>
         {
             filteredEvents?
             filteredEvents?.map((item,index)=>{
@@ -53,8 +53,8 @@ const Event = () => {
         </div>
     </div>
         </div>
-        <h2 className='ml-16 mt-5 text-xl underline'> All Events</h2>
-        <div className='mt-4 w-11/12 m-auto grid grid-cols-3 gap-4'>
+        <h2 className='ml-16 mt-5 text-xl underline allebenttext'> All Events</h2>
+        <div className='mt-4 w-11/12 m-auto grid grid-cols-3 gap-4 gridres'>
         {
             Event?
             Event?.map((item,index)=>{
